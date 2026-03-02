@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+* {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+:root {
+  --color-bg: #0f172a;
+  --color-text: #e5e7eb;
+  --color-primary: #3b82f6;
+  --color-secondary: #a855f7;
+  --color-border: #1f2937;
+}
+
+/* LIGHT */
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-text: #09090b;
+  --color-primary: #2563eb;
+  --color-secondary: #9333ea;
+  --color-border: #e4e4e7;
+}
+
+/* DARK */
+[data-theme="dark"] {
+  --color-bg: #09090b;
+  --color-text: #fafafa;
+  --color-primary: #2563eb;
+  --color-secondary: #9333ea;
+  --color-border: #27272a;
+}
+
+/* ROCKETSEAT */
+[data-theme="rocketseat"] {
+  --color-bg: #0a0a0a;
+  --color-text: #e1e1e6;
+  --color-primary: #8257e6;
+  --color-secondary: #996dff;
+  --color-border: #202024;
+}
+
+/* MINECRAFT */
+[data-theme="minecraft"] {
+  --color-bg: #1e3a1e;
+  --color-text: #d4ffd4;
+  --color-primary: #3fa34d;
+  --color-secondary: #8b5a2b;
+  --color-border: #2d5a2d;
+}
+
+/* ALURA */
+[data-theme="alura"] {
+  --color-bg: #0b2545;
+  --color-text: #e0f2ff;
+  --color-primary: #00a3ff;
+  --color-secondary: #00e0ff;
+  --color-border: #123d6b;
+}
+
+/* INSTAGRAM */
+[data-theme="instagram"] {
+  --color-bg: #000000;
+  --color-text: #fafafa;
+  --color-primary: #dd2a7b;
+  --color-secondary: #8134af;
+  --color-border: #262626;
+}
+
+/* PINTEREST */
+[data-theme="pinterest"] {
+  --color-bg: #0f0f0f;
+  --color-text: #ffffff;
+  --color-primary: #e60023;
+  --color-secondary: #ff4d6d;
+  --color-border: #1f1f1f;
+}
+
+/* SPOTIFY */
+[data-theme="spotify"] {
+  --color-bg: #121212;
+  --color-text: #ffffff;
+  --color-primary: #1db954;
+  --color-secondary: #1ed760;
+  --color-border: #282828;
+}
+
+/* NETFLIX */
+[data-theme="netflix"] {
+  --color-bg: #0b0b0b;
+  --color-text: #ffffff;
+  --color-primary: #e50914;
+  --color-secondary: #b20710;
+  --color-border: #1f1f1f;
+}
+
+/* DISCORD */
+[data-theme="discord"] {
+  --color-bg: #0f1115;
+  --color-text: #f2f3f5;
+  --color-primary: #5865f2;
+  --color-secondary: #4752c4;
+  --color-border: #23262a;
+}
+
+/* VERCEL */
+[data-theme="vercel"] {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-primary: #ffffff;
+  --color-secondary: #888888;
+  --color-border: #222222;
+}
+
+/* GITHUB */
+[data-theme="github"] {
+  --color-bg: #0d1117;
+  --color-text: #e6edf3;
+  --color-primary: #2f81f7;
+  --color-secondary: #8957e5;
+  --color-border: #30363d;
+}
+
+/* TWITTER */
+[data-theme="twitter"] {
+  --color-bg: #000000;
+  --color-text: #e7e9ea;
+  --color-primary: #1d9bf0;
+  --color-secondary: #7856ff;
+  --color-border: #2f3336;
+}
+
+/* LINKEDIN */
+[data-theme="linkedin"] {
+  --color-bg: #0a0f14;
+  --color-text: #e6edf3;
+  --color-primary: #0a66c2;
+  --color-secondary: #378fe9;
+  --color-border: #1f2a33;
+}
+
+/* DRIBBBLE */
+[data-theme="dribbble"] {
+  --color-bg: #0e0e11;
+  --color-text: #ffffff;
+  --color-primary: #ea4c89;
+  --color-secondary: #ff7ab6;
+  --color-border: #24242a;
+}
+
+.scroll-div::-webkit-scrollbar {
+  width: 9px
+}
+
+.scroll-div::-webkit-scrollbar-track {
+  background: var(--color-bg); 
+  border-radius: 5px;
+}
+
+.scroll-div::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 5px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .scroll-div {
+    scrollbar-color: var(--color-primary)
+                     var(--color-secondary);
+  }
+}
