@@ -70,16 +70,16 @@ export default function Home() {
             onClick={() => signIn("github")}
           />
           <SocialButton
+            provider="oauth_google"
+            onClick={() => signIn("google")}
+          />
+          <SocialButton
             provider="oauth_instagram"
             onClick={() => signIn("instagram")}
           />
           <SocialButton
             provider="oauth_linkedin"
             onClick={() => signIn("linkedin")}
-          />
-          <SocialButton
-            provider="oauth_google"
-            onClick={() => signIn("google")}
           />
         </div>
 

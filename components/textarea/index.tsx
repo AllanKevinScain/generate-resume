@@ -1,6 +1,6 @@
 "use client";
 
-import { type TextareaHTMLAttributes, forwardRef } from "react";
+import { type TextareaHTMLAttributes, forwardRef, useId } from "react";
 import { twMerge } from "tailwind-merge";
 import { Tooltip } from "../tootlip";
 import { TbEyeQuestion } from "react-icons/tb";
@@ -26,7 +26,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref,
   ) => {
-    const inputId = id || crypto.randomUUID();
+    const reactId = useId();
+    const inputId = id || reactId;
 
     const hasError = !!error;
 

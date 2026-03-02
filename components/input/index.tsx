@@ -1,6 +1,6 @@
 "use client";
 
-import { type InputHTMLAttributes, forwardRef } from "react";
+import { type InputHTMLAttributes, forwardRef, useId } from "react";
 import { twMerge } from "tailwind-merge";
 import { Tooltip } from "../tootlip";
 import { TbEyeQuestion } from "react-icons/tb";
@@ -25,7 +25,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    const inputId = id || crypto.randomUUID();
+    const reactId = useId();
+    const inputId = id || reactId;
 
     const hasError = !!error;
 

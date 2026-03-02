@@ -29,8 +29,7 @@ export function Form() {
   const { getAllValues, formsState } = useContext(FormPortifolioContext);
 
   const { theme } = useTheme();
-  const { data: user } = useSession();
-  console.log("🚀 ~ Form ~ user:", user);
+  const { data } = useSession();
 
   const [step, setStep] = useState(0);
 
@@ -76,8 +75,7 @@ export function Form() {
         if (allValues) {
           await generatePortfolioPDF({
             infoForPortifolio: allValues,
-            // imageUrl: user?.imageUrl,
-            imageUrl: "",
+            imageUrl: data?.user?.image ?? undefined,
             theme,
           });
         }
@@ -89,8 +87,6 @@ export function Form() {
       }
     },
   };
-
-  if (!user) return null;
 
   return (
     <div
@@ -140,8 +136,7 @@ export function Form() {
           >
             {step === 0 && (
               <HeaderSection
-                // fullName={user.fullName?.replace("_", " ")}
-                fullName={"Allan"}
+                fullName={data?.user?.name ?? ""}
                 actionButtons={actionButtons}
               />
             )}
@@ -150,12 +145,8 @@ export function Form() {
             {step === 3 && <ServicesSection actionButtons={actionButtons} />}
             {step === 4 && (
               <FooterSection
-                // email={user.emailAddresses[0].emailAddress || ""}
-                // phone={
-                //   user.phoneNumbers.length > 0
-                //     ? user.phoneNumbers[0].phoneNumber
-                //     : ""
-                // }
+                email={data?.user?.email ?? ""}
+                phone=""
                 actionButtons={actionButtons}
               />
             )}

@@ -7,6 +7,7 @@ import { headerSchema, type HeaderSchemaType } from "@/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRegisterForm } from "@/hooks";
 import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
+import { useEffect } from "react";
 
 interface HeaderSectionProps {
   fullName?: string;
@@ -19,7 +20,7 @@ export function HeaderSection(props: HeaderSectionProps) {
   const methods = useForm<HeaderSchemaType>({
     resolver: yupResolver(headerSchema),
     defaultValues: {
-      name: fullName,
+      name: "",
       role: "Desenvolvedor Front-end II",
       status: "Disponível para novos projetos",
       headline:
@@ -30,12 +31,17 @@ export function HeaderSection(props: HeaderSectionProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isDirty },
   } = methods;
 
   const onSubmit: SubmitHandler<HeaderSchemaType> = (data) => console.log(data);
 
   useRegisterForm("profile", methods);
+
+  useEffect(() => {
+    if (fullName) setValue("name", fullName?.replace("_", " "));
+  }, [fullName, setValue]);
 
   return (
     <>

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { footerSchema, type FooterSchemaType } from "@/schemas/footer.schema";
 import { useRegisterForm } from "@/hooks";
 import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
+import { useEffect } from "react";
 
 interface FooterSectionProps {
   email?: string;
@@ -39,12 +40,18 @@ export function FooterSection(props: FooterSectionProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isDirty },
   } = methods;
 
   const onSubmit: SubmitHandler<FooterSchemaType> = (data) => console.log(data);
 
   useRegisterForm("footer", methods);
+
+  useEffect(() => {
+    if (email) setValue("contact.email", email);
+    if (phone) setValue("contact.phone", phone);
+  }, [email, phone, setValue]);
 
   return (
     <>

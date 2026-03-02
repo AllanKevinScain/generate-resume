@@ -12,6 +12,8 @@ interface ProvidersProps {
 export function Providers(props: ProvidersProps) {
   const { children } = props;
 
+  if (!optionsTheme) return;
+
   return (
     <SessionProvider>
       <ThemeProvider>
