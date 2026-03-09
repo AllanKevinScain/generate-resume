@@ -27,6 +27,7 @@ export function ThemeMenu(props: ThemeMenurops) {
           <button
             onClick={() => signOut()}
             className={twMerge(
+              "text-(--color-primary)",
               "relative z-50",
               "w-11 h-11 rounded-xl",
               "flex items-center justify-center",

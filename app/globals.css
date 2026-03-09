@@ -10,19 +10,22 @@ html {
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 * {
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
 }
 
 :root {
-  --color-bg: #0f172a;
-  --color-text: #e5e7eb;
-  --color-primary: #3b82f6;
-  --color-secondary: #a855f7;
-  --color-border: #1f2937;
+  --color-bg: #ffffff;
+  --color-text: #09090b;
+  --color-primary: #2563eb;
+  --color-secondary: #9333ea;
+  --color-border: #e4e4e7;
 }
 
 /* LIGHT */
@@ -161,23 +164,21 @@ html {
 }
 
 .scroll-div::-webkit-scrollbar {
-  width: 9px
+  width: 9px;
 }
 
 .scroll-div::-webkit-scrollbar-track {
-  background: var(--color-bg); 
+  background: var(--color-bg);
   border-radius: 5px;
 }
 
 .scroll-div::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 5px;
-  
 }
 
 @supports not selector(::-webkit-scrollbar) {
   .scroll-div {
-    scrollbar-color: var(--color-primary)
-                     var(--color-secondary);
+    scrollbar-color: var(--color-primary) var(--color-secondary);
   }
 }

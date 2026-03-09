@@ -4,6 +4,7 @@ import { type InputHTMLAttributes, forwardRef, useId } from "react";
 import { twMerge } from "tailwind-merge";
 import { Tooltip } from "../tootlip";
 import { TbEyeQuestion } from "react-icons/tb";
+
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   helperText?: string;
@@ -58,7 +59,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           ref={ref}
           {...props}
-          required={required}
           className={twMerge(
             "px-4 py-3 outline-none transition-all duration-200",
             "bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]",
@@ -69,18 +69,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             hasError && "border-[color-mix(in_srgb,red_60%,transparent)]",
             classNameInput,
           )}
-          onFocus={(e) => {
-            if (!hasError) {
-              e.currentTarget.style.borderColor =
-                "color-mix(in srgb, var(--color-primary) 60%, transparent)";
-            }
-          }}
-          onBlur={(e) => {
-            if (!hasError) {
-              e.currentTarget.style.borderColor =
-                "color-mix(in srgb, var(--color-primary) 30%, transparent)";
-            }
-          }}
         />
 
         {hasError && (

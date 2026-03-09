@@ -14,8 +14,8 @@ import { Button } from "@/components";
 import { generatePortfolioPDF } from "@/utils";
 import { useTheme } from "@/hooks";
 import { FormPortifolioContext } from "@/providers/form/context";
-import { type ActionButtonsProps } from "./components/action-buttons";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { ActionButtonsProps } from "./components/container-form";
 
 const sections = [
   { id: 0, title: "Cabeçalho" },
@@ -25,11 +25,15 @@ const sections = [
   { id: 4, title: "Rodapé" },
 ];
 
-export function Form() {
+interface FormProps {
+  session: Session | null;
+}
+
+export function Form(props: FormProps) {
+  const { session } = props;
   const { getAllValues, formsState } = useContext(FormPortifolioContext);
 
   const { theme } = useTheme();
-  const { data } = useSession();
 
   const [step, setStep] = useState(0);
 
@@ -75,7 +79,7 @@ export function Form() {
         if (allValues) {
           await generatePortfolioPDF({
             infoForPortifolio: allValues,
-            imageUrl: data?.user?.image ?? undefined,
+            imageUrl: session?.user?.image ?? undefined,
             theme,
           });
         }
@@ -94,6 +98,7 @@ export function Form() {
         "min-h-screen transition-colors duration-300",
         "p-6 pt-24",
         "flex flex-col items-center",
+        "bg-(--color-bg)",
         "bg-[linear-gradient(to_right,color-mix(in_srgb,var(--color-text)_10%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_srgb,var(--color-text)_10%,transparent)_1px,transparent_1px)]",
         "bg-size-[28px_28px]",
       )}
@@ -136,7 +141,7 @@ export function Form() {
           >
             {step === 0 && (
               <HeaderSection
-                fullName={data?.user?.name ?? ""}
+                fullName={session?.user?.name ?? ""}
                 actionButtons={actionButtons}
               />
             )}
@@ -145,7 +150,7 @@ export function Form() {
             {step === 3 && <ServicesSection actionButtons={actionButtons} />}
             {step === 4 && (
               <FooterSection
-                email={data?.user?.email ?? ""}
+                email={session?.user?.email ?? ""}
                 phone=""
                 actionButtons={actionButtons}
               />

@@ -4,13 +4,16 @@ import { Button, Input, Textarea } from "@/components";
 import { RiApps2AddLine } from "react-icons/ri";
 import { FaTrashArrowUp } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { Title } from "./title";
-import { projectsSchema, type ProjectsSchemaType } from "@/schemas";
+import {
+  projectsDefaultValues,
+  projectsSchema,
+  type ProjectsSchemaType,
+} from "@/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm, type SubmitHandler } from "react-hook-form";
 import { useRegisterForm } from "@/hooks";
 import { twMerge } from "tailwind-merge";
-import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
+import { ActionButtonsProps, ContainerForm } from "./container-form";
 
 interface ProjectsSectionProps {
   actionButtons: ActionButtonsProps;
@@ -19,26 +22,14 @@ interface ProjectsSectionProps {
 export function ProjectsSection(props: ProjectsSectionProps) {
   const methods = useForm({
     resolver: yupResolver(projectsSchema),
-    defaultValues: {
-      title: "Projetos em destaque",
-      description:
-        "Alguns trabalhos e experimentos que demonstram minha experiência com front-end moderno e arquitetura de aplicações.",
-      projects: [
-        {
-          title: "Dashboard de Vendas",
-          description:
-            "Dashboard responsivo com gráficos e filtros em tempo real, focado em KPIs de e-commerce.",
-          link: "https://dashboard-vendas.vercel.app/",
-          repository: "https://github.com/allankevin/dashboard-vendas",
-        },
-      ],
-    },
+    defaultValues: projectsDefaultValues,
   });
+
   const {
     control,
     handleSubmit,
     register,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = methods;
 
   const { fields, append, remove } = useFieldArray({
@@ -46,21 +37,25 @@ export function ProjectsSection(props: ProjectsSectionProps) {
     name: "projects",
   });
 
-  const onSubmit: SubmitHandler<ProjectsSchemaType> = (data) =>
+  const onSubmit: SubmitHandler<ProjectsSchemaType> = (data) => {
     console.log(data);
+
+    if (Object.keys(errors).length > 0) return;
+    props.actionButtons.nextStep?.();
+  };
 
   useRegisterForm("projects_section", methods);
 
   return (
-    <>
-      <Title
-        title="Seus Projetos"
-        description="Adicione projetos que representem sua experiência."
-      />
-      <form
-        className="flex flex-col gap-12 md:gap-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <ContainerForm
+      title="Seus Projetos"
+      description="Adicione projetos que representem sua experiência."
+      onSubmit={handleSubmit(onSubmit)}
+      formClassName="gap-12 md:gap-4"
+      actionButtons={props.actionButtons}
+      isDirty={!isDirty}
+    >
+      <>
         {fields.map((field, index) => {
           return (
             <motion.div
@@ -121,8 +116,7 @@ export function ProjectsSection(props: ProjectsSectionProps) {
             </Button.solid>
           </div>
         )}
-      </form>
-      <ActionButtons {...props.actionButtons} disabled={!isDirty} />
-    </>
+      </>
+    </ContainerForm>
   );
 }

@@ -13,7 +13,7 @@ export default function Home() {
         "min-h-screen",
         "flex items-center justify-center",
         "px-6",
-        "bg-(--color-background)",
+        "bg-(--color-bg)",
         "relative overflow-hidden",
       )}
     >
@@ -44,7 +44,7 @@ export default function Home() {
           "rounded-2xl",
           "p-8",
           "bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-bg)_95%,transparent),color-mix(in_srgb,var(--color-bg)_85%,transparent))]",
-          "border border-[color-mix(in_srgb,var(--color-text)_15%,transparent)]",
+          "border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)]",
           "shadow-xl",
           "backdrop-blur-md",
         )}

@@ -7,6 +7,7 @@ export function GhostButton(props: HTMLMotionProps<"button">) {
   const { children, className, ...rest } = props;
   return (
     <motion.button
+      type="button"
       {...rest}
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.96 }}

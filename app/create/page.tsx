@@ -1,10 +1,16 @@
+import { getServerSession } from "next-auth";
 import { Form } from "./form";
 import { FormPortifolioProvider } from "@/providers/form";
+import { authOptions } from "@/auth-config";
 
-export default function MultiStepPage() {
+export default async function MultiStepPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) return;
+
   return (
     <FormPortifolioProvider>
-      <Form />
+      <Form session={session} />
     </FormPortifolioProvider>
   );
 }

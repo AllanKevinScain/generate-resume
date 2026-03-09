@@ -1,13 +1,15 @@
 "use client";
 
 import { Input, Textarea } from "@/components";
-import { Title } from "./title";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { headerSchema, type HeaderSchemaType } from "@/schemas";
+import {
+  headerDefaultValues,
+  headerSchema,
+  type HeaderSchemaType,
+} from "@/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRegisterForm } from "@/hooks";
-import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
-import { useEffect } from "react";
+import { ActionButtonsProps, ContainerForm } from "./container-form";
 
 interface HeaderSectionProps {
   fullName?: string;
@@ -15,69 +17,68 @@ interface HeaderSectionProps {
 }
 
 export function HeaderSection(props: HeaderSectionProps) {
-  const { fullName, actionButtons } = props;
-
   const methods = useForm<HeaderSchemaType>({
     resolver: yupResolver(headerSchema),
-    defaultValues: {
-      name: "",
-      role: "Desenvolvedor Front-end II",
-      status: "Disponível para novos projetos",
-      headline:
-        "Crio interfaces modernas, performáticas e escaláveis com foco em experiência do usuário e arquitetura sólida.",
-      title: "Seja bem vindo!",
-    },
+    defaultValues: headerDefaultValues,
   });
+
   const {
     register,
     handleSubmit,
-    setValue,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = methods;
 
-  const onSubmit: SubmitHandler<HeaderSchemaType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<HeaderSchemaType> = (data) => {
+    console.log(data);
+    if (Object.keys(errors).length > 0) return;
+    props.actionButtons.nextStep?.();
+  };
 
   useRegisterForm("profile", methods);
 
-  useEffect(() => {
-    if (fullName) setValue("name", fullName?.replace("_", " "));
-  }, [fullName, setValue]);
-
   return (
-    <>
-      <Title title="Configuração do Cabeçalho" description="Defina:" />
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+    <ContainerForm
+      title="Configuração do Cabeçalho"
+      description="Defina:"
+      onSubmit={handleSubmit(onSubmit)}
+      actionButtons={props.actionButtons}
+      isDirty={!isDirty}
+    >
+      <>
         <div className="flex flex-col gap-2 md:flex-row">
           <Input
             label="Nome completo"
-            disabled={!fullName}
-            {...register("name")}
             placeholder="Digite seu nome aqui"
+            error={errors.name?.message}
+            {...register("name")}
           />
           <Input
             label="Profissão"
-            {...register("role")}
             placeholder="Digite seu profissão aqui"
+            error={errors.role?.message}
+            {...register("role")}
           />
         </div>
 
         <Input
           label="Título"
-          {...register("title")}
           placeholder="Digite o título aqui"
+          error={errors.title?.message}
+          {...register("title")}
         />
         <Input
           label="Status"
-          {...register("status")}
           placeholder="Digite seu status aqui"
+          error={errors.status?.message}
+          {...register("status")}
         />
         <Textarea
           label="Descrição"
-          {...register("headline")}
           placeholder="Digite a descricao aqui"
+          error={errors.headline?.message}
+          {...register("headline")}
         />
-      </form>
-      <ActionButtons {...actionButtons} disabled={!isDirty} />
-    </>
+      </>
+    </ContainerForm>
   );
 }

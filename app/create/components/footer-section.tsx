@@ -1,13 +1,15 @@
 "use client";
 
 import { Input, Textarea } from "@/components";
-import { Title } from "./title";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { footerSchema, type FooterSchemaType } from "@/schemas/footer.schema";
+import {
+  footerDefaultValues,
+  footerSchema,
+  type FooterSchemaType,
+} from "@/schemas/footer.schema";
 import { useRegisterForm } from "@/hooks";
-import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
-import { useEffect } from "react";
+import { ActionButtonsProps, ContainerForm } from "./container-form";
 
 interface FooterSectionProps {
   email?: string;
@@ -20,46 +22,33 @@ export function FooterSection(props: FooterSectionProps) {
 
   const methods = useForm({
     resolver: yupResolver(footerSchema),
-    defaultValues: {
-      cta_title: "Vamos conversar?",
-      cta_description:
-        "Me chame para falarmos sobre seu projeto, produto ou ideia. Posso ajudar a transformar isso em uma experiência sólida.",
-      tech_stack_footer: "Construído com React, Vite, TypeScript e Tailwind.",
-      contact: {
-        email: email,
-        phone: phone,
-        social_media: {
-          linkedin: "http://asasass.linkeding.com.br",
-          github: "http://asasaas.github.com.br",
-          instagram: "http://asasas.instagram.br",
-          google: "http://asasas.google.br",
-        },
-      },
-    },
+    defaultValues: footerDefaultValues,
   });
+
   const {
     register,
     handleSubmit,
-    setValue,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = methods;
 
-  const onSubmit: SubmitHandler<FooterSchemaType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FooterSchemaType> = (data) => {
+    console.log(data);
+
+    if (Object.keys(errors).length > 0) return;
+    props.actionButtons.nextStep?.();
+  };
 
   useRegisterForm("footer", methods);
 
-  useEffect(() => {
-    if (email) setValue("contact.email", email);
-    if (phone) setValue("contact.phone", phone);
-  }, [email, phone, setValue]);
-
   return (
-    <>
-      <Title
-        title="Configuração do Rodapé"
-        description="Redes sociais, contato e direitos autorais."
-      />
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+    <ContainerForm
+      title="Configuração do Rodapé"
+      description="Redes sociais, contato e direitos autorais."
+      onSubmit={handleSubmit(onSubmit)}
+      actionButtons={props.actionButtons}
+      isDirty={!isDirty}
+    >
+      <>
         <Input
           label="Título à convite"
           {...register("cta_title")}
@@ -114,8 +103,7 @@ export function FooterSection(props: FooterSectionProps) {
           {...register("contact.social_media.google")}
           placeholder="Sua empresa do google"
         />
-      </form>
-      <ActionButtons {...props.actionButtons} disabled={!isDirty} />
-    </>
+      </>
+    </ContainerForm>
   );
 }

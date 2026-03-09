@@ -59,7 +59,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={inputId}
           ref={ref}
           {...props}
-          required={required}
           className={twMerge(
             "px-4 py-3 outline-none transition-all duration-200",
             "bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]",
@@ -70,18 +69,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             hasError && "border-[color-mix(in_srgb,red_60%,transparent)]",
             classNameTextarea,
           )}
-          onFocus={(e) => {
-            if (!hasError) {
-              e.currentTarget.style.borderColor =
-                "color-mix(in srgb, var(--color-primary) 60%, transparent)";
-            }
-          }}
-          onBlur={(e) => {
-            if (!hasError) {
-              e.currentTarget.style.borderColor =
-                "color-mix(in srgb, var(--color-primary) 30%, transparent)";
-            }
-          }}
           rows={5}
         />
 

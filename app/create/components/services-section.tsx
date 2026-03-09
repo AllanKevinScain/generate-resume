@@ -4,13 +4,16 @@ import { Button, Input, Textarea } from "@/components";
 import { RiApps2AddLine } from "react-icons/ri";
 import { FaTrashArrowUp } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { Title } from "./title";
-import { servicesSchema, type ServicesSchemaType } from "@/schemas";
+import {
+  servicesDefaultValues,
+  servicesSchema,
+  type ServicesSchemaType,
+} from "@/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm, type SubmitHandler } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { useRegisterForm } from "@/hooks";
-import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
+import { ActionButtonsProps, ContainerForm } from "./container-form";
 
 interface ServicesSectionProps {
   actionButtons: ActionButtonsProps;
@@ -19,25 +22,14 @@ interface ServicesSectionProps {
 export function ServicesSection(props: ServicesSectionProps) {
   const methods = useForm({
     resolver: yupResolver(servicesSchema),
-    defaultValues: {
-      title: "Serviços",
-      description:
-        "Soluções focadas em resultado, performance e escalabilidade — do site institucional ao front-end de aplicações complexas.",
-      services: [
-        {
-          title: "Landing Page / Site Institucional",
-          description:
-            "Páginas otimizadas para conversão, SEO e alta performance.",
-          starting_price: "2000",
-        },
-      ],
-    },
+    defaultValues: servicesDefaultValues,
   });
+
   const {
     control,
     handleSubmit,
     register,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = methods;
 
   const { fields, append, remove } = useFieldArray({
@@ -45,21 +37,25 @@ export function ServicesSection(props: ServicesSectionProps) {
     name: "services",
   });
 
-  const onSubmit: SubmitHandler<ServicesSchemaType> = (data) =>
+  const onSubmit: SubmitHandler<ServicesSchemaType> = (data) => {
     console.log(data);
+
+    if (Object.keys(errors).length > 0) return;
+    props.actionButtons.nextStep?.();
+  };
 
   useRegisterForm("services_section", methods);
 
   return (
-    <>
-      <Title
-        title="Seus Serviços"
-        description="Adicione serviços que representem sua experiência."
-      />
-      <form
-        className="flex flex-col gap-12 md:gap-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <ContainerForm
+      title="Seus Serviços"
+      description="Adicione serviços que representem sua experiência."
+      formClassName="gap-12 md:gap-4"
+      onSubmit={handleSubmit(onSubmit)}
+      actionButtons={props.actionButtons}
+      isDirty={!isDirty}
+    >
+      <>
         {fields.map((field, index) => {
           return (
             <motion.div
@@ -118,8 +114,7 @@ export function ServicesSection(props: ServicesSectionProps) {
             </Button.solid>
           </div>
         )}
-      </form>
-      <ActionButtons {...props.actionButtons} disabled={!isDirty} />
-    </>
+      </>
+    </ContainerForm>
   );
 }

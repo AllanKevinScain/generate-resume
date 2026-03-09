@@ -4,13 +4,16 @@ import { Button, Input, Textarea } from "@/components";
 import { RiApps2AddLine } from "react-icons/ri";
 import { FaTrashArrowUp } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import { Title } from "./title";
 import { useFieldArray, useForm, type SubmitHandler } from "react-hook-form";
-import { differentialsSchema, type DifferentialsSchemaType } from "@/schemas";
+import {
+  differentialsDefaultValues,
+  differentialsSchema,
+  type DifferentialsSchemaType,
+} from "@/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { twMerge } from "tailwind-merge";
 import { useRegisterForm } from "@/hooks";
-import { ActionButtons, type ActionButtonsProps } from "./action-buttons";
+import { ActionButtonsProps, ContainerForm } from "./container-form";
 
 interface FeaturesSectionProps {
   actionButtons: ActionButtonsProps;
@@ -19,25 +22,14 @@ interface FeaturesSectionProps {
 export function FeaturesSection(props: FeaturesSectionProps) {
   const methods = useForm({
     resolver: yupResolver(differentialsSchema),
-    defaultValues: {
-      title: "Diferenciais",
-      description:
-        "Práticas e mentalidade que guiam minhas decisões técnicas e de produto.",
-      principal_tecnologies: "React,TypeScript,Tailwind CSS,Vite",
-      differentials: [
-        {
-          title: "Performance e Acessibilidade",
-          description:
-            "Páginas leves, rápidas e inclusivas (Lighthouse e boas práticas WCAG).",
-        },
-      ],
-    },
+    defaultValues: differentialsDefaultValues,
   });
+
   const {
     control,
     handleSubmit,
     register,
-    formState: { isDirty },
+    formState: { isDirty, errors },
   } = methods;
 
   const { fields, append, remove } = useFieldArray({
@@ -45,21 +37,24 @@ export function FeaturesSection(props: FeaturesSectionProps) {
     name: "differentials",
   });
 
-  const onSubmit: SubmitHandler<DifferentialsSchemaType> = (data) =>
+  const onSubmit: SubmitHandler<DifferentialsSchemaType> = (data) => {
     console.log(data);
+
+    if (Object.keys(errors).length > 0) return;
+    props.actionButtons.nextStep?.();
+  };
 
   useRegisterForm("differentials_section", methods);
 
   return (
-    <>
-      <Title
-        title="Seus Diferenciais"
-        description="Destaque seus principais pontos fortes."
-      />
-      <form
-        className="flex flex-col gap-4 md:gap-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <ContainerForm
+      title="Seus Diferenciais"
+      isDirty={!isDirty}
+      description="Destaque seus principais pontos fortes."
+      onSubmit={handleSubmit(onSubmit)}
+      actionButtons={props.actionButtons}
+    >
+      <>
         <Input
           label="Título de slogan"
           placeholder="Título"
@@ -130,8 +125,7 @@ export function FeaturesSection(props: FeaturesSectionProps) {
             </Button.solid>
           </div>
         )}
-      </form>
-      <ActionButtons {...props.actionButtons} disabled={!isDirty} />
-    </>
+      </>
+    </ContainerForm>
   );
 }
