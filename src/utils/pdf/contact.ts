@@ -1,7 +1,7 @@
-import { PDFFont, PDFPage } from "pdf-lib";
-import type { PdfThemeColors } from "./styles/select-colors-by-theme";
-import { drawUnderlinedText } from "./styles";
-import type { InfoForPortifolioType } from "@/types";
+import { PDFFont, PDFPage } from 'pdf-lib';
+import type { PdfThemeColors } from './styles/select-colors-by-theme';
+import { drawUnderlinedText } from './styles';
+import type { InfoForPortifolioType } from '@/types';
 
 type GenerateContactPartParamsType = {
   page: PDFPage;
@@ -16,7 +16,7 @@ export async function generateContactPart(params: GenerateContactPartParamsType)
   const { page, font, fontBold, infoForPortifolio, themeColors } = params;
   let { y } = params;
 
-  page.drawText("Contato", {
+  page.drawText('Contato', {
     x: 50,
     y,
     size: 18,

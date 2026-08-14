@@ -1,15 +1,15 @@
-import { PDFDocument, StandardFonts } from "pdf-lib";
-import { generateProjectPart } from "./projects";
-import { generateServicesPart } from "./services";
-import { generateDifferentialsPart } from "./differentials";
-import { generateContactPart } from "./contact";
-import { generateHeaderPart } from "./header";
-import { generateAvatarPart } from "./avatar";
-import { drawGradientBar } from "./styles";
-import { selectPdfColorsByTheme } from "./styles/select-colors-by-theme";
-import type { FooterSchemaType, HeaderSchemaType } from "@/schemas";
-import type { ThemeType } from "@/types";
-import { getPortfolioPdfData } from "@/services/pdf-data";
+import { PDFDocument, StandardFonts } from 'pdf-lib';
+import { generateProjectPart } from './projects';
+import { generateServicesPart } from './services';
+import { generateDifferentialsPart } from './differentials';
+import { generateContactPart } from './contact';
+import { generateHeaderPart } from './header';
+import { generateAvatarPart } from './avatar';
+import { drawGradientBar } from './styles';
+import { selectPdfColorsByTheme } from './styles/select-colors-by-theme';
+import type { FooterSchemaType, HeaderSchemaType } from '@/schemas';
+import type { ThemeType } from '@/types';
+import { getPortfolioPdfData } from '@/services/pdf-data';
 
 type GeneratePortfolioPDFParamsType = {
   profile: HeaderSchemaType;
@@ -110,14 +110,14 @@ export async function generatePortfolioPDF(params: GeneratePortfolioPDFParamsTyp
   const pdfBytes = (await pdfDoc.save()) as BlobPart;
 
   const blob = new Blob([pdfBytes], {
-    type: "application/pdf",
+    type: 'application/pdf',
   });
 
   const url = URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
-  a.download = "curriculo.pdf";
+  a.download = 'curriculo.pdf';
   document.body.appendChild(a);
   a.click();
   a.remove();

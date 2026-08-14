@@ -1,7 +1,7 @@
-import { Text } from "@/components";
-import { Button } from "@/components/button";
-import { useAuth } from "@/hooks";
-import { Section } from "./components/section";
+import { Text } from '@/components';
+import { Button } from '@/components/button';
+import { useAuth } from '@/hooks';
+import { Section } from './components/section';
 
 export function DashboardPage() {
   const { logout } = useAuth();

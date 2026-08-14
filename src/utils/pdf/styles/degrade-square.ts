@@ -1,5 +1,5 @@
-import { PDFPage, type RGB } from "pdf-lib";
-import { degradeGenerateColor } from "./degrade-color";
+import { PDFPage, type RGB } from 'pdf-lib';
+import { degradeGenerateColor } from './degrade-color';
 
 type DrawGradientBarParamsType = {
   page: PDFPage;

@@ -1,13 +1,13 @@
-import { Button, Input, Text, Textarea } from "@/components";
-import { queryKeys } from "@/hooks";
-import type { CreateDifferentialInput } from "@/schemas/differential.schema";
-import { DifferentialSchema } from "@/schemas/differential.schema";
-import { differentialService } from "@/services";
-import type { ModalProps } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Button, Input, Text, Textarea } from '@/components';
+import { queryKeys } from '@/hooks';
+import type { CreateDifferentialInput } from '@/schemas/differential.schema';
+import { DifferentialSchema } from '@/schemas/differential.schema';
+import { differentialService } from '@/services';
+import type { ModalProps } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface HandleDifferentialModalProps extends ModalProps {
   id: string;
@@ -15,8 +15,8 @@ interface HandleDifferentialModalProps extends ModalProps {
 }
 
 const defaultValues: CreateDifferentialInput = {
-  title: "",
-  description: "",
+  title: '',
+  description: '',
 };
 
 export function HandleDifferentialModal(props: HandleDifferentialModalProps) {
@@ -47,7 +47,7 @@ export function HandleDifferentialModal(props: HandleDifferentialModalProps) {
         className="flex w-full max-w-lg flex-col gap-4 rounded-2xl border border-(--color-border) bg-(--color-bg) p-6 shadow-2xl"
       >
         <Text variant="h3" className="mb-2">
-          {id ? "Edit form" : "New differential"}
+          {id ? 'Edit form' : 'New differential'}
         </Text>
 
         <div className="flex flex-col gap-1">

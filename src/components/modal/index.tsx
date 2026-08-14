@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import { HiXMark } from 'react-icons/hi2';
 
 type ModalProps = {
   isOpen: boolean;
@@ -15,13 +16,13 @@ export function Modal(props: ModalProps) {
     if (!isOpen) return;
 
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onClose();
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -38,6 +39,14 @@ export function Modal(props: ModalProps) {
         className="relative w-full max-w-2xl rounded-3xl border border-(--color-border) bg-(--color-bg) shadow-2xl"
         onMouseDown={(event) => event.stopPropagation()}
       >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Fechar modal"
+          className="absolute top-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-border)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-bg)_90%,transparent)] text-(--color-text) transition hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+        >
+          <HiXMark size={20} aria-hidden="true" />
+        </button>
         {children}
       </div>
     </div>

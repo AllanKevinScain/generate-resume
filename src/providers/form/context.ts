@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import type { InfoForPortifolioType, KeyInfoForPortifolioType } from "@/types";
-import { createContext } from "react";
-import type { FieldValues, UseFormReturn } from "react-hook-form";
+import type { InfoForPortifolioType, KeyInfoForPortifolioType } from '@/types';
+import { createContext } from 'react';
+import type { FieldValues, UseFormReturn } from 'react-hook-form';
 
 type FormPortifolioContextType = {
   formsState: Record<KeyInfoForPortifolioType, UseFormReturn<FieldValues> | null>;

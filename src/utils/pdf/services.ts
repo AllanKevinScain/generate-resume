@@ -1,6 +1,6 @@
-import { PDFFont, PDFPage } from "pdf-lib";
-import type { PdfThemeColors } from "./styles/select-colors-by-theme";
-import type { InfoForPortifolioType } from "@/types";
+import { PDFFont, PDFPage } from 'pdf-lib';
+import type { PdfThemeColors } from './styles/select-colors-by-theme';
+import type { InfoForPortifolioType } from '@/types';
 
 type GenerateServicesPartParamsType = {
   page: PDFPage;
@@ -13,9 +13,9 @@ type GenerateServicesPartParamsType = {
 
 function formatPrice(value: string) {
   const valueNumber = parseFloat(value);
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
   }).format(valueNumber);
 }
 

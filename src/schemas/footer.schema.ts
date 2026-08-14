@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
 const socialMediaSchema = yup.object({
   linkedin: yup.string().url(),
@@ -8,30 +8,30 @@ const socialMediaSchema = yup.object({
 });
 
 const contactSchema = yup.object({
-  email: yup.string().email().required("Campo obrigatório."),
-  phone: yup.string().required("Campo obrigatório."),
+  email: yup.string().email().required('Campo obrigatório.'),
+  phone: yup.string().required('Campo obrigatório.'),
   social_media: socialMediaSchema,
 });
 
 export const footerSchema = yup.object({
-  cta_title: yup.string().required("Campo obrigatório."),
-  cta_description: yup.string().required("Campo obrigatório."),
-  tech_stack_footer: yup.string().required("Campo obrigatório."),
+  cta_title: yup.string().required('Campo obrigatório.'),
+  cta_description: yup.string().required('Campo obrigatório.'),
+  tech_stack_footer: yup.string().required('Campo obrigatório.'),
   contact: contactSchema,
 });
 
 export const footerDefaultValues = {
-  cta_title: "",
-  cta_description: "",
-  tech_stack_footer: "",
+  cta_title: '',
+  cta_description: '',
+  tech_stack_footer: '',
   contact: {
-    email: "",
-    phone: "",
+    email: '',
+    phone: '',
     social_media: {
-      linkedin: "",
-      github: "",
-      instagram: "",
-      google: "",
+      linkedin: '',
+      github: '',
+      instagram: '',
+      google: '',
     },
   },
   // cta_title: "Vamos conversar?",

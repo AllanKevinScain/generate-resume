@@ -1,5 +1,5 @@
-import type { PDFFont, PDFPage, RGB } from "pdf-lib";
-import { degradeGenerateColor } from "./degrade-color";
+import type { PDFFont, PDFPage, RGB } from 'pdf-lib';
+import { degradeGenerateColor } from './degrade-color';
 
 type DrawGradientTextParamsType = {
   page: PDFPage;

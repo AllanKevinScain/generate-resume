@@ -25,5 +25,6 @@
     "unknown": "off"
   },
   "terminal.integrated.shellIntegration.enabled": true,
-  "scm.compactFolders": false
+  "scm.compactFolders": false,
+  "workbench.browser.openLocalhostLinks": false
 }

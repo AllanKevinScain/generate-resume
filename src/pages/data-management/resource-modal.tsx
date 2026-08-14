@@ -1,6 +1,6 @@
-import { Button, Input, Textarea } from "@/components";
-import type { Resource, ResourceFormValues } from "./data-management.type";
-import { type ChangeEvent, type FormEvent } from "react";
+import { Button, Input, Textarea } from '@/components';
+import type { Resource, ResourceFormValues } from './data-management.type';
+import { type ChangeEvent, type FormEvent } from 'react';
 interface ResourceModalProps {
   resource: Resource;
   isOpen: boolean;
@@ -48,23 +48,23 @@ export function ResourceModal(props: ResourceModalProps) {
             const common = {
               label: field.label,
               required: !field.optional,
-              value: values[field.name] ?? "",
+              value: values[field.name] ?? '',
               onChange: (
                 event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
               ) => onChange(field.name, event.target.value),
             };
 
-            if (field.kind === "textarea") {
+            if (field.kind === 'textarea') {
               return (
                 <Textarea
                   key={field.name}
                   {...common}
-                  className={field.name === "description" ? "md:col-span-2" : undefined}
+                  className={field.name === 'description' ? 'md:col-span-2' : undefined}
                 />
               );
             }
 
-            if (field.kind === "select") {
+            if (field.kind === 'select') {
               return (
                 <label key={field.name} className="flex flex-col gap-1 text-sm font-medium text-(--color-text)">
                   <span>
@@ -73,7 +73,7 @@ export function ResourceModal(props: ResourceModalProps) {
                   </span>
                   <select
                     required={!field.optional}
-                    value={values[field.name] ?? ""}
+                    value={values[field.name] ?? ''}
                     onChange={common.onChange}
                     className="rounded-xl border border-(--color-border) bg-(--color-bg) px-4 py-3"
                   >
@@ -91,8 +91,8 @@ export function ResourceModal(props: ResourceModalProps) {
               <Input
                 key={field.name}
                 {...common}
-                type={field.kind === "url" ? "url" : "text"}
-                className={field.name === "title" ? "md:col-span-2" : undefined}
+                type={field.kind === 'url' ? 'url' : 'text'}
+                className={field.name === 'title' ? 'md:col-span-2' : undefined}
               />
             );
           })}
@@ -109,7 +109,7 @@ export function ResourceModal(props: ResourceModalProps) {
             Cancelar
           </Button.outline>
           <Button.solid type="submit" disabled={isSaving}>
-            {isSaving ? "Salvando..." : "Salvar"}
+            {isSaving ? 'Salvando...' : 'Salvar'}
           </Button.solid>
         </div>
       </form>

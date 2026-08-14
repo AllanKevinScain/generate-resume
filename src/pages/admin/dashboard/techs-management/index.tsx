@@ -1,14 +1,14 @@
-import { Button, Skeleton } from "@/components";
-import { queryKeys, useTech } from "@/hooks";
-import type { CreateTechInput } from "@/schemas";
-import { techService } from "@/services";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { HandleExcludeModal, HeaderCreateItem } from "../components";
-import { SectionItems } from "../components/section-items";
-import { HandleTechModal } from "./handle-modal";
+import { Button, Skeleton } from '@/components';
+import { queryKeys, useTech } from '@/hooks';
+import type { CreateTechInput } from '@/schemas';
+import { techService } from '@/services';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { HandleExcludeModal, HeaderCreateItem } from '../components';
+import { SectionItems } from '../components/section-items';
+import { HandleTechModal } from './handle-modal';
 
 export function TechsManagementPage() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function TechsManagementPage() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isExcludeOpen, setIsExcludeOpen] = useState(false);
-  const [selectedTech, setSelectedTech] = useState<string>("");
+  const [selectedTech, setSelectedTech] = useState<string>('');
 
   const techs = useQuery({
     queryKey: queryKeys.techs,
@@ -69,14 +69,14 @@ export function TechsManagementPage() {
     <>
       <div className="mx-auto max-w-7xl px-6 pt-25 pb-10">
         <header className="mb-8 flex flex-col gap-4">
-          <Button.ghost onClick={() => navigate("/admin")}>
+          <Button.ghost onClick={() => navigate('/admin')}>
             <ArrowLeft size={20} />
             Back to Dashboard
           </Button.ghost>
 
           <HeaderCreateItem
             handleAdd={() => {
-              setSelectedTech("");
+              setSelectedTech('');
               handleFormModal();
             }}
             title="Managing Technologies"

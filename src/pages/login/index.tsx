@@ -1,13 +1,15 @@
-import { Button, Input } from "@/components";
-import { useAuth } from "@/hooks";
-import { motion } from "framer-motion";
-import { useState, type FormEvent } from "react";
-import { twMerge } from "tailwind-merge";
+import { Button, Input } from '@/components';
+import { useAuth } from '@/hooks';
+import { motion } from 'framer-motion';
+import { useState, type FormEvent } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { twMerge } from 'tailwind-merge';
 
 export function LoginPage() {
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -28,9 +30,9 @@ export function LoginPage() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         className={twMerge(
-          "relative w-full max-w-md rounded-2xl p-8 shadow-xl backdrop-blur-md",
-          "border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)]",
-          "bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-bg)_95%,transparent),color-mix(in_srgb,var(--color-bg)_85%,transparent))]",
+          'relative w-full max-w-md rounded-2xl p-8 shadow-xl backdrop-blur-md',
+          'border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)]',
+          'bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-bg)_95%,transparent),color-mix(in_srgb,var(--color-bg)_85%,transparent))]',
         )}
       >
         <h1 className="text-center text-2xl font-bold text-(--color-text)">Entrar na sua conta</h1>
@@ -46,16 +48,28 @@ export function LoginPage() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <Input
-            label="Senha"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
+          <div className="relative">
+            <Input
+              label="Senha"
+              type={isPasswordVisible ? 'text' : 'password'}
+              autoComplete="current-password"
+              value={password}
+              classNameInput="pr-12"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <button
+              type="button"
+              className="absolute right-4 bottom-3 text-(--color-text) opacity-70 transition-opacity hover:opacity-100"
+              aria-label={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
+              aria-pressed={isPasswordVisible}
+              onClick={() => setIsPasswordVisible((isVisible) => !isVisible)}
+            >
+              {isPasswordVisible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </button>
+          </div>
           {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
           <Button.solid type="submit" disabled={isSubmitting} className="justify-center">
-            {isSubmitting ? "Entrando..." : "Entrar"}
+            {isSubmitting ? 'Entrando...' : 'Entrar'}
           </Button.solid>
         </form>
       </motion.div>

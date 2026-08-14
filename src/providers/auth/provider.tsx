@@ -1,7 +1,7 @@
-import { isSupabaseConfigured, supabase } from "@/lib/supabase";
-import type { User } from "@supabase/supabase-js";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AuthContext } from "./context";
+import { isSupabaseConfigured, supabase } from '@/lib/supabase';
+import type { User } from '@supabase/supabase-js';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { AuthContext } from './context';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -30,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     if (!isSupabaseConfigured) {
-      return "Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.";
+      return 'Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.';
     }
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });

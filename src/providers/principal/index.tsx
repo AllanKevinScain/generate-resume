@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { ThemeMenu } from "@/components";
-import { optionsTheme } from "@/data";
-import { useAuth } from "@/hooks";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "../theme";
+import { ThemeMenu } from '@/components';
+import { optionsTheme } from '@/data';
+import { useAuth } from '@/hooks';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from '../theme';
 
 const queryClient = new QueryClient();
 
@@ -24,7 +24,10 @@ export function Providers(props: ProvidersProps) {
         {children}
         {!user && (
           <ThemeMenu
-            items={Object.values(optionsTheme).map(({ icon: _, ...rest }) => rest)}
+            items={Object.values(optionsTheme).map(({ icon, ...rest }) => {
+              void icon;
+              return rest;
+            })}
           />
         )}
       </ThemeProvider>

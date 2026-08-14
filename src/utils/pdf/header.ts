@@ -1,7 +1,7 @@
-import { PDFFont, PDFPage } from "pdf-lib";
-import type { PdfThemeColors } from "./styles/select-colors-by-theme";
-import { drawGradientText } from "./styles";
-import type { InfoForPortifolioType } from "@/types";
+import { PDFFont, PDFPage } from 'pdf-lib';
+import type { PdfThemeColors } from './styles/select-colors-by-theme';
+import { drawGradientText } from './styles';
+import type { InfoForPortifolioType } from '@/types';
 
 type GenerateHeaderPartParamsType = {
   page: PDFPage;

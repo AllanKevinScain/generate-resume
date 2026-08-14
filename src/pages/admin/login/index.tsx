@@ -1,9 +1,9 @@
-import { Button, Input, Text } from "@/components";
-import { useAuth } from "@/hooks";
-import { LoginSchema, type Login } from "@/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { Button, Input, Text } from '@/components';
+import { useAuth } from '@/hooks';
+import { LoginSchema, type Login } from '@/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 export function LoginPage() {
   const { login, isAuthenticated } = useAuth();
@@ -17,8 +17,8 @@ export function LoginPage() {
   } = useForm<Login>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -26,17 +26,17 @@ export function LoginPage() {
     const success = login(data.email, data.password);
 
     if (success) {
-      navigate("/admin");
+      navigate('/admin');
     } else {
-      setError("root", {
-        type: "manual",
-        message: "Invalid credentials",
+      setError('root', {
+        type: 'manual',
+        message: 'Invalid credentials',
       });
     }
   };
 
   if (isAuthenticated) {
-    navigate("/admin");
+    navigate('/admin');
   }
 
   return (

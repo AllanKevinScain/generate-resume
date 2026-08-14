@@ -1,5 +1,5 @@
-import { FormPortifolioContext } from "@/providers/form/context";
-import { useContext, useEffect } from "react";
+import { FormPortifolioContext } from '@/providers/form/context';
+import { useContext, useEffect } from 'react';
 
 export function useRegisterForm(formName: string, methods: unknown) {
   const { registerForm } = useContext(FormPortifolioContext);

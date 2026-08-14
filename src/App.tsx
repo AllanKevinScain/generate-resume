@@ -1,17 +1,21 @@
-import { Button, ThemeMenu } from "@/components";
-import { optionsTheme } from "@/data";
-import { useAuth } from "@/hooks";
-import { DashboardPage } from "@/pages/dashboard";
-import { DifferentialsPage } from "@/pages/differentials";
-import { LoginPage } from "@/pages/login";
-import { ProjectsPage } from "@/pages/projects";
-import { ResumeEditorPage } from "@/pages/resume-editor";
-import { TechsPage } from "@/pages/techs";
-import { WorksPage } from "@/pages/works";
-import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
+import { Button, ThemeMenu } from '@/components';
+import { optionsTheme } from '@/data';
+import { useAuth } from '@/hooks';
+import { DashboardPage } from '@/pages/dashboard';
+import { DifferentialsPage } from '@/pages/differentials';
+import { LoginPage } from '@/pages/login';
+import { ProjectsPage } from '@/pages/projects';
+import { ResumeEditorPage } from '@/pages/resume-editor';
+import { TechsPage } from '@/pages/techs';
+import { WorksPage } from '@/pages/works';
+import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
 
 function AppShell() {
   const { logout } = useAuth();
+  const themeItems = Object.values(optionsTheme).map(({ icon, ...rest }) => {
+    void icon;
+    return rest;
+  });
 
   return (
     <BrowserRouter>
@@ -28,7 +32,7 @@ function AppShell() {
               <Link to="/resume" className="rounded-xl px-4 py-2 text-sm transition hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)]">
                 Currículo PDF
               </Link>
-              {optionsTheme && (<ThemeMenu items={Object.values(optionsTheme).map(({ icon: _, ...rest }) => rest)} type="inline" />)}
+              <ThemeMenu items={themeItems} type="inline" />
               <Button.outline type="button" onClick={() => void logout()}>
                 Sair
               </Button.outline>

@@ -1,14 +1,14 @@
-import { Button, Skeleton } from "@/components";
-import { queryKeys, useProject } from "@/hooks";
-import type { CreateProjectInput } from "@/schemas";
-import { projectService } from "@/services";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { HandleExcludeModal, HeaderCreateItem } from "../components";
-import { SectionItems } from "../components/section-items";
-import { HandleProjectModal } from "./handle-modal";
+import { Button, Skeleton } from '@/components';
+import { queryKeys, useProject } from '@/hooks';
+import type { CreateProjectInput } from '@/schemas';
+import { projectService } from '@/services';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { HandleExcludeModal, HeaderCreateItem } from '../components';
+import { SectionItems } from '../components/section-items';
+import { HandleProjectModal } from './handle-modal';
 
 export function ProjectsManagementPage() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function ProjectsManagementPage() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isExcludeOpen, setIsExcludeOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<string>("");
+  const [selectedProject, setSelectedProject] = useState<string>('');
 
   const projects = useQuery({
     queryKey: queryKeys.projects,
@@ -69,14 +69,14 @@ export function ProjectsManagementPage() {
     <>
       <div className="mx-auto max-w-7xl px-6 pt-25 pb-10">
         <header className="mb-8 flex flex-col gap-4">
-          <Button.ghost onClick={() => navigate("/admin")}>
+          <Button.ghost onClick={() => navigate('/admin')}>
             <ArrowLeft size={20} />
             Back to Dashboard
           </Button.ghost>
 
           <HeaderCreateItem
             handleAdd={() => {
-              setSelectedProject("");
+              setSelectedProject('');
               handleFormModal();
             }}
             title="Managing Projects"

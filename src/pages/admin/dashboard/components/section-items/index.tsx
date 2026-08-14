@@ -1,5 +1,5 @@
-import { EmptyState, Text } from "@/components";
-import { Item } from "./item";
+import { EmptyState, Text } from '@/components';
+import { Item } from './item';
 
 export type SectionItemsType = {
   id: string;

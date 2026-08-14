@@ -1,5 +1,5 @@
-import { PDFDocument, PDFPage } from "pdf-lib";
-import type { PdfThemeColors } from "../styles/select-colors-by-theme";
+import { PDFDocument, PDFPage } from 'pdf-lib';
+import type { PdfThemeColors } from '../styles/select-colors-by-theme';
 
 type GenerateAvatarPartParamsType = {
   page: PDFPage;
@@ -13,14 +13,14 @@ async function createCircularAvatar(url: string, size: number = 256): Promise<Bl
   const img = await fetch(url).then((r) => r.blob());
   const bitmap = await createImageBitmap(img);
 
-  const canvas = document.createElement("canvas");
+  const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
 
   if (!ctx) {
-    throw new Error("Não foi possível obter o contexto do canvas");
+    throw new Error('Não foi possível obter o contexto do canvas');
   }
 
   ctx.beginPath();
@@ -33,11 +33,11 @@ async function createCircularAvatar(url: string, size: number = 256): Promise<Bl
   const blob = await new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((result) => {
       if (!result) {
-        reject(new Error("Falha ao criar Blob do canvas"));
+        reject(new Error('Falha ao criar Blob do canvas'));
         return;
       }
       resolve(result);
-    }, "image/png");
+    }, 'image/png');
   });
 
   return blob;

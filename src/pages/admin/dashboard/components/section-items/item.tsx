@@ -1,7 +1,7 @@
-import { Text } from "@/components";
-import { Button } from "@/components/button";
-import { motion } from "framer-motion";
-import { Pencil, Trash2 } from "lucide-react";
+import { Text } from '@/components';
+import { Button } from '@/components/button';
+import { motion } from 'framer-motion';
+import { Pencil, Trash2 } from 'lucide-react';
 
 interface ItemProps {
   id: string;
@@ -15,7 +15,7 @@ interface ItemProps {
 
 export function Item(props: ItemProps) {
   const { id, index, name, title, description, onEdit, onDelete } = props;
-  const displayName = title || name || "No title";
+  const displayName = title || name || 'No title';
 
   return (
     <motion.li

@@ -1,58 +1,58 @@
-import { Button  } from "@/components";
-import { useState } from "react";
-import type { Resource,  } from "./data-management.type";
-import { CrudManager } from "./crud-manager";
+import { Button  } from '@/components';
+import { useState } from 'react';
+import type { Resource,  } from './data-management.type';
+import { CrudManager } from './crud-manager';
 
 const resources: Resource[] = [
   {
-    table: "project",
-    label: "Projetos",
-    description: "Cadastre os projetos exibidos na listagem.",
+    table: 'project',
+    label: 'Projetos',
+    description: 'Cadastre os projetos exibidos na listagem.',
     fields: [
-      { name: "title", label: "Título" },
-      { name: "description", label: "Descrição", kind: "textarea" },
-      { name: "repository", label: "Repositório", kind: "url" },
-      { name: "demo", label: "Demonstração", kind: "url", optional: true },
+      { name: 'title', label: 'Título' },
+      { name: 'description', label: 'Descrição', kind: 'textarea' },
+      { name: 'repository', label: 'Repositório', kind: 'url' },
+      { name: 'demo', label: 'Demonstração', kind: 'url', optional: true },
     ],
   },
   {
-    table: "tech",
-    label: "Tecnologias",
-    description: "Mantenha as tecnologias e níveis organizados.",
+    table: 'tech',
+    label: 'Tecnologias',
+    description: 'Mantenha as tecnologias e níveis organizados.',
     fields: [
-      { name: "name", label: "Nome" },
-      { name: "description", label: "Descrição", kind: "textarea" },
+      { name: 'name', label: 'Nome' },
+      { name: 'description', label: 'Descrição', kind: 'textarea' },
       {
-        name: "nivel",
-        label: "Nível",
-        kind: "select",
-        options: ["junior", "mid", "senior", "stack"],
+        name: 'nivel',
+        label: 'Nível',
+        kind: 'select',
+        options: ['junior', 'mid', 'senior', 'stack'],
       },
     ],
   },
   {
-    table: "work",
-    label: "Trabalhos e eventos",
-    description: "Registre trabalhos, eventos e experiências visíveis no site.",
+    table: 'work',
+    label: 'Trabalhos e eventos',
+    description: 'Registre trabalhos, eventos e experiências visíveis no site.',
     fields: [
-      { name: "title", label: "Título" },
-      { name: "description", label: "Descrição", kind: "textarea" },
-      { name: "image", label: "Imagem", kind: "url", optional: true },
+      { name: 'title', label: 'Título' },
+      { name: 'description', label: 'Descrição', kind: 'textarea' },
+      { name: 'image', label: 'Imagem', kind: 'url', optional: true },
     ],
   },
   {
-    table: "differential",
-    label: "Diferenciais",
-    description: "Atualize os diferenciais destacados para o público.",
+    table: 'differential',
+    label: 'Diferenciais',
+    description: 'Atualize os diferenciais destacados para o público.',
     fields: [
-      { name: "title", label: "Título" },
-      { name: "description", label: "Descrição", kind: "textarea" },
+      { name: 'title', label: 'Título' },
+      { name: 'description', label: 'Descrição', kind: 'textarea' },
     ],
   },
 ];
 
 export function DataManagementPage() {
-  const [activeTable, setActiveTable] = useState<Resource["table"]>("project");
+  const [activeTable, setActiveTable] = useState<Resource['table']>('project');
   const activeResource = resources.find((resource) => resource.table === activeTable) ?? resources[0];
 
   return (
@@ -70,7 +70,7 @@ export function DataManagementPage() {
                 type="button"
                 key={resource.table}
                 onClick={() => setActiveTable(resource.table)}
-                className={activeTable === resource.table ? "border-(--color-primary)" : undefined}
+                className={activeTable === resource.table ? 'border-(--color-primary)' : undefined}
               >
                 {resource.label}
               </Button.outline>

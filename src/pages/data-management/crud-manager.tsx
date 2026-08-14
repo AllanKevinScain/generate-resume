@@ -1,10 +1,11 @@
-import { Button  } from "@/components";
-import { supabaseCrud, type CrudRow } from "@/services/supabase-crud";
-import { useMemo, useState, type FormEvent } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { ResourceModal } from "./resource-modal";
-import type { Resource,  } from "./data-management.type";
-import { createEmptyValues, createFormValues } from "./utils";
+import { Button } from '@/components';
+import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
+import { useMemo, useState, type FormEvent } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { ResourceModal } from './resource-modal';
+import { ResourceItemCard } from './resource-item-card';
+import type { Resource } from './data-management.type';
+import { createEmptyValues, createFormValues } from './utils';
 
 export function CrudManager({ resource }: { resource: Resource }) {
   const initialValues = useMemo(() => createEmptyValues(resource), [resource]);
@@ -15,7 +16,7 @@ export function CrudManager({ resource }: { resource: Resource }) {
   const [error, setError] = useState<string | null>(null);
 
   const query = useQuery({
-    queryKey: ["supabase-resource", resource.table],
+    queryKey: ['supabase-resource', resource.table],
     queryFn: () => supabaseCrud.list(resource.table),
   });
   const items = query.data ?? [];
@@ -50,7 +51,7 @@ export function CrudManager({ resource }: { resource: Resource }) {
 
     const payload = Object.fromEntries(
       resource.fields.map((field) => {
-        const rawValue = values[field.name]?.trim() ?? "";
+        const rawValue = values[field.name]?.trim() ?? '';
         const shouldBeNull = field.optional && rawValue.length === 0;
         return [field.name, shouldBeNull ? null : rawValue];
       }),
@@ -66,21 +67,21 @@ export function CrudManager({ resource }: { resource: Resource }) {
       closeModal();
       await query.refetch();
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Falha ao salvar dados.");
+      setError(caught instanceof Error ? caught.message : 'Falha ao salvar dados.');
     } finally {
       setIsSaving(false);
     }
   }
 
   async function remove(item: CrudRow) {
-    if (!window.confirm("Deseja realmente excluir este registro?")) return;
+    if (!window.confirm('Deseja realmente excluir este registro?')) return;
 
     setError(null);
     try {
       await supabaseCrud.remove(resource.table, item.id);
       await query.refetch();
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Falha ao excluir dados.");
+      setError(caught instanceof Error ? caught.message : 'Falha ao excluir dados.');
     }
   }
 
@@ -104,34 +105,19 @@ export function CrudManager({ resource }: { resource: Resource }) {
         {!isLoading && items.length === 0 && <p className="opacity-70">Nenhum registro cadastrado.</p>}
         {loadError && <p role="alert" className="text-sm text-red-500">{loadError}</p>}
         {items.map((item) => (
-          <article
+          <ResourceItemCard
             key={item.id}
-            className="rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6"
-          >
-            <h3 className="text-lg font-semibold text-(--color-text)">
-              {String(item.title ?? item.name ?? "Registro")}
-            </h3>
-            {String(item.description) && (
-              <p className="mt-2 whitespace-pre-wrap text-sm opacity-75">
-                {String(item.description)}
-              </p>
-            )}
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Button.outline type="button" onClick={() => openEditModal(item)}>
-                Editar
-              </Button.outline>
-              <Button.ghost type="button" onClick={() => void remove(item)} className="text-red-500">
-                Excluir
-              </Button.ghost>
-            </div>
-          </article>
+            item={item}
+            onEdit={openEditModal}
+            onRemove={(currentItem) => void remove(currentItem)}
+          />
         ))}
       </div>
 
       <ResourceModal
         resource={resource}
         isOpen={isModalOpen}
-        title={selectedItem ? "Editar item" : "Adicionar item"}
+        title={selectedItem ? 'Editar item' : 'Adicionar item'}
         values={values}
         error={error}
         isSaving={isSaving}

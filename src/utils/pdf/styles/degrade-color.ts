@@ -1,4 +1,4 @@
-import { rgb, type RGB } from "pdf-lib";
+import { rgb, type RGB } from 'pdf-lib';
 
 type DegradeGenerateColorParamsType = {
   fromColor: RGB;

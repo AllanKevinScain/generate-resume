@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import type { FieldValues, UseFormReturn } from "react-hook-form";
-import { FormPortifolioContext } from "./context";
-import type { InfoForPortifolioType } from "@/types";
+import { useState } from 'react';
+import type { FieldValues, UseFormReturn } from 'react-hook-form';
+import { FormPortifolioContext } from './context';
+import type { InfoForPortifolioType } from '@/types';
 
 export function FormPortifolioProvider({
   children,

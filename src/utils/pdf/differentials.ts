@@ -1,6 +1,6 @@
-import { PDFFont, PDFPage } from "pdf-lib";
-import type { PdfThemeColors } from "./styles/select-colors-by-theme";
-import type { InfoForPortifolioType } from "@/types";
+import { PDFFont, PDFPage } from 'pdf-lib';
+import type { PdfThemeColors } from './styles/select-colors-by-theme';
+import type { InfoForPortifolioType } from '@/types';
 
 type GenerateDifferentialsPartParamsType = {
   page: PDFPage;

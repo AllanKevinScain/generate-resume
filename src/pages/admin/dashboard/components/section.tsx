@@ -1,5 +1,5 @@
-import { Text } from "@/components";
-import { Link } from "react-router";
+import { Text } from '@/components';
+import { Link } from 'react-router';
 
 interface SectionProps {
   name: string;

@@ -1,9 +1,9 @@
-import { Button, Input, Textarea } from "@/components";
-import { useAuth, useTheme } from "@/hooks";
-import { footerDefaultValues, headerDefaultValues, type FooterSchemaType, type HeaderSchemaType } from "@/schemas";
-import { generatePortfolioPDF } from "@/utils";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Button, Input, Textarea } from '@/components';
+import { useAuth, useTheme } from '@/hooks';
+import { footerDefaultValues, headerDefaultValues, type FooterSchemaType, type HeaderSchemaType } from '@/schemas';
+import { generatePortfolioPDF } from '@/utils';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 type ResumeFormValues = {
   profile: HeaderSchemaType;
@@ -32,7 +32,7 @@ export function ResumeEditorPage() {
         ...footerDefaultValues,
         contact: {
           ...footerDefaultValues.contact,
-          email: user?.email ?? "",
+          email: user?.email ?? '',
         },
       },
     },
@@ -48,7 +48,7 @@ export function ResumeEditorPage() {
         theme,
       });
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Não foi possível gerar o PDF.");
+      setError(caught instanceof Error ? caught.message : 'Não foi possível gerar o PDF.');
     } finally {
       setIsGenerating(false);
     }
@@ -67,31 +67,31 @@ export function ResumeEditorPage() {
         <form onSubmit={onSubmit} className="flex flex-col gap-7">
           <Section title="Cabeçalho">
             <div className="grid gap-4 md:grid-cols-2">
-              <Input label="Nome completo" {...register("profile.name")} />
-              <Input label="Profissão" {...register("profile.role")} />
-              <Input label="Título" {...register("profile.title")} />
-              <Input label="Status" {...register("profile.status")} />
+              <Input label="Nome completo" {...register('profile.name')} />
+              <Input label="Profissão" {...register('profile.role')} />
+              <Input label="Título" {...register('profile.title')} />
+              <Input label="Status" {...register('profile.status')} />
             </div>
-            <Textarea label="Resumo profissional" {...register("profile.headline")} />
+            <Textarea label="Resumo profissional" {...register('profile.headline')} />
           </Section>
 
           <Section title="Contato e rodapé">
-            <Input label="Título do convite" {...register("footer.cta_title")} />
-            <Textarea label="Descrição do convite" {...register("footer.cta_description")} />
-            <Input label="Frase final" {...register("footer.tech_stack_footer")} />
+            <Input label="Título do convite" {...register('footer.cta_title')} />
+            <Textarea label="Descrição do convite" {...register('footer.cta_description')} />
+            <Input label="Frase final" {...register('footer.tech_stack_footer')} />
             <div className="grid gap-4 md:grid-cols-2">
-              <Input label="E-mail" type="email" {...register("footer.contact.email")} />
-              <Input label="Telefone" {...register("footer.contact.phone")} />
-              <Input label="LinkedIn" required={false} {...register("footer.contact.social_media.linkedin")} />
-              <Input label="GitHub" required={false} {...register("footer.contact.social_media.github")} />
-              <Input label="Instagram" required={false} {...register("footer.contact.social_media.instagram")} />
-              <Input label="Google" required={false} {...register("footer.contact.social_media.google")} />
+              <Input label="E-mail" type="email" {...register('footer.contact.email')} />
+              <Input label="Telefone" {...register('footer.contact.phone')} />
+              <Input label="LinkedIn" required={false} {...register('footer.contact.social_media.linkedin')} />
+              <Input label="GitHub" required={false} {...register('footer.contact.social_media.github')} />
+              <Input label="Instagram" required={false} {...register('footer.contact.social_media.instagram')} />
+              <Input label="Google" required={false} {...register('footer.contact.social_media.google')} />
             </div>
           </Section>
 
           {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
           <Button.solid type="submit" disabled={isGenerating} className="justify-center self-end">
-            {isGenerating ? "Gerando PDF..." : "Baixar currículo em PDF"}
+            {isGenerating ? 'Gerando PDF...' : 'Baixar currículo em PDF'}
           </Button.solid>
         </form>
       </div>

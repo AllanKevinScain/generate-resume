@@ -1,5 +1,5 @@
-import { Button, Skeleton, Text } from "@/components";
-import type { ModalProps } from "@/types";
+import { Button, Skeleton, Text } from '@/components';
+import type { ModalProps } from '@/types';
 
 interface HandleExcludeModalProps extends ModalProps {
   isLoading: boolean;

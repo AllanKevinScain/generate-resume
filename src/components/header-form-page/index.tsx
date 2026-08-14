@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components";
+import { Button } from '@/components';
 
 type HeaderFormPageProps = {
   titulo: string;

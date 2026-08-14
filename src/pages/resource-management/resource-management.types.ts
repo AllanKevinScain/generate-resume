@@ -1,3 +1,5 @@
+import type { CrudRow } from '@/services/supabase-crud';
+
 export type Field = {
   name: string;
   label: string;
@@ -6,11 +8,14 @@ export type Field = {
   options?: string[];
 };
 
-export type Resource = {
+export type ResourceConfig = {
   table: 'project' | 'tech' | 'work' | 'differential';
-  label: string;
+  title: string;
   description: string;
+  emptyMessage: string;
   fields: Field[];
 };
 
 export type ResourceFormValues = Record<string, string>;
+
+export type ResourceItem = CrudRow;

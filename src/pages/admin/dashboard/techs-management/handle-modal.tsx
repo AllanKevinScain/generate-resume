@@ -1,13 +1,13 @@
-import { Button, Input, Select, Text, Textarea } from "@/components";
-import { queryKeys } from "@/hooks";
-import type { CreateTechInput } from "@/schemas/tech.schema";
-import { TechSchema } from "@/schemas/tech.schema";
-import { techService } from "@/services";
-import type { ModalProps } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Button, Input, Select, Text, Textarea } from '@/components';
+import { queryKeys } from '@/hooks';
+import type { CreateTechInput } from '@/schemas/tech.schema';
+import { TechSchema } from '@/schemas/tech.schema';
+import { techService } from '@/services';
+import type { ModalProps } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface HandleTechModalProps extends ModalProps {
   id: string;
@@ -15,9 +15,9 @@ interface HandleTechModalProps extends ModalProps {
 }
 
 const defaultValues: CreateTechInput = {
-  name: "",
-  description: "",
-  nivel: "junior",
+  name: '',
+  description: '',
+  nivel: 'junior',
 };
 
 export function HandleTechModal(props: HandleTechModalProps) {
@@ -48,7 +48,7 @@ export function HandleTechModal(props: HandleTechModalProps) {
         className="flex w-full max-w-lg flex-col gap-4 rounded-2xl border border-(--color-border) bg-(--color-bg) p-6 shadow-2xl"
       >
         <Text variant="h3" className="mb-2">
-          {id ? "Edit form" : "New technology"}
+          {id ? 'Edit form' : 'New technology'}
         </Text>
 
         <div className="flex flex-col gap-1">
@@ -61,10 +61,10 @@ export function HandleTechModal(props: HandleTechModalProps) {
             control={control}
             label="Nivel"
             options={[
-              { value: "junior", label: "Junior" },
-              { value: "mid", label: "Mid" },
-              { value: "senior", label: "Senior" },
-              { value: "stack", label: "Stack" },
+              { value: 'junior', label: 'Junior' },
+              { value: 'mid', label: 'Mid' },
+              { value: 'senior', label: 'Senior' },
+              { value: 'stack', label: 'Stack' },
             ]}
           />
         </div>

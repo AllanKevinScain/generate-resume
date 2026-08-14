@@ -1,5 +1,5 @@
-import type { DifferentialsSchemaType, HeaderSchemaType, ProjectsSchemaType, ServicesSchemaType } from "@/schemas";
-import type { FooterSchemaType } from "@/schemas/footer.schema";
+import type { DifferentialsSchemaType, HeaderSchemaType, ProjectsSchemaType, ServicesSchemaType } from '@/schemas';
+import type { FooterSchemaType } from '@/schemas/footer.schema';
 
 export type InfoForPortifolioType = {
   profile: HeaderSchemaType;

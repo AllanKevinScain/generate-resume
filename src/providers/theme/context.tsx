@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import type { ThemeType } from "@/types";
-import { createContext } from "react";
+import type { ThemeType } from '@/types';
+import { createContext } from 'react';
 
 type ThemeContextType = {
   theme: ThemeType;
@@ -9,6 +9,6 @@ type ThemeContextType = {
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: "light",
+  theme: 'light',
   setTheme: () => null,
 });

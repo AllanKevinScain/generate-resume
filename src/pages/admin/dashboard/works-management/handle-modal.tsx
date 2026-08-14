@@ -1,13 +1,13 @@
-import { Button, Input, Text, Textarea } from "@/components";
-import { queryKeys } from "@/hooks";
-import type { CreateWorkInput } from "@/schemas/work.schema";
-import { WorkSchema } from "@/schemas/work.schema";
-import { workService } from "@/services";
-import type { ModalProps } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Button, Input, Text, Textarea } from '@/components';
+import { queryKeys } from '@/hooks';
+import type { CreateWorkInput } from '@/schemas/work.schema';
+import { WorkSchema } from '@/schemas/work.schema';
+import { workService } from '@/services';
+import type { ModalProps } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface HandleWorkModalProps extends ModalProps {
   id: string;
@@ -15,9 +15,9 @@ interface HandleWorkModalProps extends ModalProps {
 }
 
 const defaultValues: CreateWorkInput = {
-  title: "",
-  description: "",
-  image: "",
+  title: '',
+  description: '',
+  image: '',
 };
 
 export function HandleWorkModal(props: HandleWorkModalProps) {
@@ -48,7 +48,7 @@ export function HandleWorkModal(props: HandleWorkModalProps) {
         className="flex w-full max-w-lg flex-col gap-4 rounded-2xl border border-(--color-border) bg-(--color-bg) p-6 shadow-2xl"
       >
         <Text variant="h3" className="mb-2">
-          {id ? "Edit form" : "New work/event"}
+          {id ? 'Edit form' : 'New work/event'}
         </Text>
 
         <Input name="title" control={control} label="Title" />

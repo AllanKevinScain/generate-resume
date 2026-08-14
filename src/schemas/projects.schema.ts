@@ -1,26 +1,26 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
 const projectSchema = yup.object({
-  title: yup.string().required("Campo obrigatório."),
-  description: yup.string().required("Campo obrigatório."),
+  title: yup.string().required('Campo obrigatório.'),
+  description: yup.string().required('Campo obrigatório.'),
   link: yup.string().url(),
   repository: yup.string().url(),
 });
 
 export const projectsSchema = yup.object({
-  title: yup.string().required("Campo obrigatório."),
-  description: yup.string().required("Campo obrigatório."),
-  principal_tecnologies: yup.string().required("Campo obrigatório."),
-  projects: yup.array().of(projectSchema).required("Campo obrigatório."),
+  title: yup.string().required('Campo obrigatório.'),
+  description: yup.string().required('Campo obrigatório.'),
+  principal_tecnologies: yup.string().required('Campo obrigatório.'),
+  projects: yup.array().of(projectSchema).required('Campo obrigatório.'),
 });
 
 export type ProjectsSchemaType = yup.InferType<typeof projectsSchema>;
 
 export const projectsDefaultValues: ProjectsSchemaType = {
-  title: "",
-  description: "",
-  projects: [{ title: "", description: "", link: "", repository: "" }],
-  principal_tecnologies: "",
+  title: '',
+  description: '',
+  projects: [{ title: '', description: '', link: '', repository: '' }],
+  principal_tecnologies: '',
   // title: "Projetos em destaque",
   // description:
   //   "Alguns trabalhos e experimentos que demonstram minha experiência com front-end moderno e arquitetura de aplicações.",

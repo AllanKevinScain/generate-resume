@@ -1,4 +1,4 @@
-import type { PDFFont, PDFPage, RGB } from "pdf-lib";
+import type { PDFFont, PDFPage, RGB } from 'pdf-lib';
 
 type DrawUnderlinedTextParamsType = {
   page: PDFPage;

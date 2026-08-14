@@ -1,13 +1,13 @@
-import { Button, Input, Text, Textarea } from "@/components";
-import { queryKeys } from "@/hooks";
-import type { CreateProjectInput } from "@/schemas/project.schema";
-import { ProjectSchema } from "@/schemas/project.schema";
-import { projectService } from "@/services";
-import type { ModalProps } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Button, Input, Text, Textarea } from '@/components';
+import { queryKeys } from '@/hooks';
+import type { CreateProjectInput } from '@/schemas/project.schema';
+import { ProjectSchema } from '@/schemas/project.schema';
+import { projectService } from '@/services';
+import type { ModalProps } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface HandleProjectModalProps extends ModalProps {
   id: string;
@@ -15,9 +15,9 @@ interface HandleProjectModalProps extends ModalProps {
 }
 
 const defaultValues = {
-  title: "",
-  description: "",
-  repository: "",
+  title: '',
+  description: '',
+  repository: '',
   demo: undefined,
 };
 
@@ -50,7 +50,7 @@ export function HandleProjectModal(props: HandleProjectModalProps) {
         className="flex w-full max-w-lg flex-col gap-4 rounded-2xl border border-(--color-border) bg-(--color-bg) p-6 shadow-2xl"
       >
         <Text variant="h3" className="mb-2">
-          {id ? "Edit form" : "New project"}
+          {id ? 'Edit form' : 'New project'}
         </Text>
 
         <div className="flex flex-col gap-1">

@@ -1,52 +1,120 @@
-# Agent Instructions for generate-resume
+# AGENTS.md
 
-## Project purpose
+## Comunicação
 
-This repository is a React + TypeScript + Vite app for generating a resume/portfolio PDF. The current app shell is rendered in `src/App.tsx`, and the main feature should be a form-based resume editor that feeds data into the existing PDF generation utilities.
+- Responder sempre em português, Brasil.
+- Ser direto, organizado e objetivo.
+- Não inventar informações. Se algo não estiver claro no contexto, perguntar antes de alterar arquivos.
+- Use linguagem clara, direta e objetiva.
+- Use palavras óbvias e fáceis de entender.
+- Evite termos técnicos desnecessários.
+- Quando usar termos técnicos, explique rapidamente.
+- Seja prático e vá direto ao ponto.
+- Organize a resposta com títulos, subtítulos e exemplos quando ajudar.
 
-## Key areas for code changes
+## Confirmação obrigatória após alteração de arquivo
 
-- `src/App.tsx` - current UI entrypoint. The resume editing UI should be added here or via child components.
-- `src/providers/form/` - form context and provider.
-  - `src/providers/form/provider.tsx` registers multiple form sections and exposes `getAllValues()`.
-  - `src/providers/form/context.ts` defines the shared `FormPortifolioContext`.
-- `src/hooks/use-register-form/index.ts` - helper hook for components to register their form methods in the provider.
-- `src/schemas/` - yup schemas for form sections:
-  - `header.schema.ts` for profile/header data
-  - `projects.schema.ts` for project items
-  - `deffierentials.schema.ts` for differentials
-  - `services.schema.ts` for services
-  - `footer.schema.ts` for contact/footer data
-- `src/types/form-create.type.ts` - central type `InfoForPortifolioType` describing the resume data shape.
-- `src/utils/pdf/` - existing PDF generation logic that consumes resume data and theme colors.
+Sempre que o agente/LLM fizer qualquer alteração em um arquivo, ele deve parar e perguntar ao usuário se o resultado ficou correto antes de continuar para a próxima alteração.
 
-## Architecture and conventions
+Após alterar arquivo, responda obrigatoriamente neste formato:
 
-- Uses Vite path alias `@/` for imports from `src/`.
-- Uses `react-hook-form` together with `yup` schemas for validation.
-- The provider stores `UseFormReturn` objects keyed by form section names.
-- `FormPortifolioProvider` is the cross-section state owner and should wrap form components if multi-section state is needed.
-- UI styling uses Tailwind CSS and `tailwind-merge`.
+```txt
+Alterei o arquivo: caminho/do/arquivo
 
-## Build and workflow commands
+O resultado era esse?
 
-- `npm install` - install project dependencies
-- `npm run dev` - start the local development server
-- `npm run build` - build the production bundle
-- `npm run lint` - run ESLint across the codebase
+1. Sim, este era o resultado, pode continuar.
+2. Quero ajustar algo: descreva o que deseja alterar.
+```
 
-## Guidance for implementing the resume form
+## O que este projeto é
 
-- Start by creating or extending UI in `src/App.tsx` with section components.
-- Use the existing schemas for form defaults and validation rather than inventing new field names.
-- Register each form section via `useRegisterForm(sectionName, methods)` so `getAllValues()` can collect values.
-- When generating a PDF, pass data matching `InfoForPortifolioType` to `src/utils/pdf/index.ts`.
-- Avoid breaking the provider/hook contract: the `registerForm` call is expected to store forms by section name.
+Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentica no Supabase, gerencia cadastros em paginas dedicadas, consome repositorios publicos do GitHub para a pagina de projetos e gera PDF com os dados do Supabase.
 
-## Notes for agents
+## Regras gerais do projeto
 
-- The repository currently has no `AGENTS.md` / `.github/copilot-instructions.md`, so this file is the main source of guidance.
-- Do not add unrelated backend or deployment changes; focus on the resume editor form and PDF flow.
-- Prefer modifying existing components in `src/` and follow existing naming and folder conventions.
+- Responder sempre em portugues do Brasil.
+- Ser direto, claro e objetivo.
+- Nao inventar informacoes. Se algo estiver ambigio, perguntar antes de alterar arquivos.
+- Fazer mudancas pequenas e incrementais.
+- Depois de alterar um arquivo, parar e pedir confirmacao antes de seguir para outra alteracao.
 
-@gemini.md
+## Stack atual
+
+- React 19
+- Vite 8
+- TypeScript
+- Tailwind CSS v4 com `@tailwindcss/vite`
+- `framer-motion`
+- `@tanstack/react-query`
+- `react-hook-form`
+- `react-router-dom`
+- `react-icons`
+- `@supabase/supabase-js`
+- `pdf-lib`
+- `tailwind-merge`
+- `babel-plugin-react-compiler`
+
+## Padrões importantes
+
+- O `ThemeMenu` aparece no header quando o usuario esta logado.
+- Quando o usuario nao esta logado, o `ThemeMenu` vem do provider principal.
+- A pagina `/projects` apenas lista repositorios publicos do GitHub.
+- As paginas de gestao usam Supabase diretamente.
+- A geracao de PDF usa dados do Supabase e deixa editavel somente cabecalho e contato/rodape.
+
+## Estrutura esperada
+
+- `src/pages/` para paginas
+- `src/components/` para componentes reutilizaveis
+- `src/services/` para integracoes com Supabase e GitHub
+- `src/providers/` para auth, tema e query client
+- `src/types/` para tipos compartilhados
+- `src/utils/` para funcoes puras e helpers
+
+## Convencoes de codigo
+
+- Arquivos e pastas em `kebab-case`
+- Funcoes, variaveis e parametros em `camelCase`
+- Componentes e tipos em `PascalCase`
+- Usar aspas simples
+- Manter arquivos `.ts` e `.tsx` com no maximo 120 linhas, quando possivel
+
+## Fluxo de trabalho
+
+- Validar com `npm run lint` e `npm run build` apos alteracoes relevantes
+- Nao commitar `.env`
+- Usar `.env.example` como referencia
+- Depois de alterar dependencias, rodar `npm install` antes de testar
+
+## Regras de lint / formatação (ESLint)
+
+O projeto não usa Prettier — toda a formatação e as convenções de código são aplicadas via ESLint (`eslint.config.js`, flat config). Regras principais:
+
+| Regra | Configuração | O que garante |
+| --- | --- | --- |
+| `max-lines` | `['error', { max: 120, skipBlankLines: true, skipComments: true }]` | Nenhum arquivo `.ts`/`.tsx` pode passar de **120 linhas** (linhas em branco e comentários não contam). |
+| `quotes` | `['error', 'single', { avoidEscape: true }]` | Apenas **aspas simples** em strings. |
+| `check-file/filename-naming-convention` | `{ '**/*.{ts,tsx}': 'KEBAB_CASE' }` (com `ignoreMiddleExtensions: true`) | Todo arquivo `.ts`/`.tsx` deve ter o nome em **kebab-case** (ex.: `json-panel.tsx`, `use-generate-prompt.ts`). |
+| `check-file/folder-naming-convention` | `{ 'src/**/': 'KEBAB_CASE' }` | Toda pasta dentro de `src/` deve ter o nome em **kebab-case**. |
+| `@typescript-eslint/naming-convention` | ver `eslint.config.js` | `function`: `camelCase` ou `PascalCase` (componentes); `variable`: `camelCase`, `PascalCase` ou `UPPER_CASE` (constantes de módulo); `parameter`: `camelCase`; `typeLike` (types/interfaces): `PascalCase`. |
+| `react-hooks/*` (recommended) | `eslint-plugin-react-hooks` | Regras padrão de hooks do React (deps de `useEffect`, ordem de chamada, etc.), essencial para o React Compiler funcionar corretamente. |
+| `react-refresh/only-export-components` | `warn`, `allowConstantExport: true` | Garante Fast Refresh consistente durante o `npm run dev`. |
+
+Resumindo as convenções de nomenclatura em texto:
+
+- **Arquivos e pastas**: `kebab-case` (ex.: `task-form.tsx`, `prompt-specification.schema.ts`, `src/hook/`).
+- **Funções, variáveis, parâmetros e estados**: `camelCase` (ex.: `handleSubmit`, `taskDescriptionRef`, `isFetching`).
+- **Componentes e tipos/interfaces**: `PascalCase` (ex.: `HomePage`, `Accordion`, `PromptSpecification`).
+- Constantes de módulo que nunca mudam podem ficar em `UPPER_CASE` (ex.: `SYSTEM_MESSAGE`, `OPENROUTER_URL`).
+
+Rodar `npm run lint` para validar tudo isso antes de commitar.
+
+## Convenções para quem for mexer no código (agentes ou humanos)
+
+- Mudanças no formato de saída da IA devem ser feitas em conjunto: `SYSTEM_MESSAGE` (o que se pede à IA), `promptSpecificationSchema`/`parsePromptSpecification` (como se valida/normaliza) e o tipo `PromptSpecification` precisam ficar sincronizados.
+- Novos campos na especificação exigem atualizar também `buildCodexPrompt`, para que apareçam no prompt final gerado.
+- Scripts disponíveis: `npm run dev` (desenvolvimento), `npm run build` (`tsc -b && vite build`), `npm run preview`, `npm run lint` (ESLint).
+- Não commitar `.env` (já está no `.gitignore`); usar `.env.example` como referência de variáveis esperadas.
+- Após alterar dependências (`package.json`), rodar `npm install` localmente antes de `npm run dev`/`build`.
+

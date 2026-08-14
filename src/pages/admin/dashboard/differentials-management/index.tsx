@@ -1,14 +1,14 @@
-import { Button, Skeleton } from "@/components";
-import { queryKeys, useDifferential } from "@/hooks";
-import type { CreateDifferentialInput } from "@/schemas";
-import { differentialService } from "@/services";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { HandleExcludeModal, HeaderCreateItem } from "../components";
-import { SectionItems } from "../components/section-items";
-import { HandleDifferentialModal } from "./handle-modal";
+import { Button, Skeleton } from '@/components';
+import { queryKeys, useDifferential } from '@/hooks';
+import type { CreateDifferentialInput } from '@/schemas';
+import { differentialService } from '@/services';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { HandleExcludeModal, HeaderCreateItem } from '../components';
+import { SectionItems } from '../components/section-items';
+import { HandleDifferentialModal } from './handle-modal';
 
 export function DifferentialsManagementPage() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function DifferentialsManagementPage() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isExcludeOpen, setIsExcludeOpen] = useState(false);
-  const [selectedDifferential, setSelectedDifferential] = useState<string>("");
+  const [selectedDifferential, setSelectedDifferential] = useState<string>('');
 
   const differentials = useQuery({
     queryKey: queryKeys.differentials,
@@ -69,14 +69,14 @@ export function DifferentialsManagementPage() {
     <>
       <div className="mx-auto max-w-7xl px-6 pt-25 pb-10">
         <header className="mb-8 flex flex-col gap-4">
-          <Button.ghost onClick={() => navigate("/admin")}>
+          <Button.ghost onClick={() => navigate('/admin')}>
             <ArrowLeft size={20} />
             Back to Dashboard
           </Button.ghost>
 
           <HeaderCreateItem
             handleAdd={() => {
-              setSelectedDifferential("");
+              setSelectedDifferential('');
               handleFormModal();
             }}
             title="Managing Differentiators"

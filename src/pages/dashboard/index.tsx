@@ -1,25 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const cards = [
   {
-    titulo: "Projetos",
-    descricao: "Gerenciar projetos",
-    rota: "/projects",
+    titulo: 'Projetos',
+    descricao: 'Gerenciar projetos',
+    rota: '/projects',
   },
   {
-    titulo: "Tecnologias",
-    descricao: "Gerenciar tecnologias",
-    rota: "/techs",
+    titulo: 'Tecnologias',
+    descricao: 'Gerenciar tecnologias',
+    rota: '/techs',
   },
   {
-    titulo: "Experiências",
-    descricao: "Gerenciar experiências de trabalho",
-    rota: "/works",
+    titulo: 'Experiências',
+    descricao: 'Gerenciar experiências de trabalho',
+    rota: '/works',
   },
   {
-    titulo: "Diferenciais",
-    descricao: "Gerenciar diferenciais",
-    rota: "/differentials",
+    titulo: 'Diferenciais',
+    descricao: 'Gerenciar diferenciais',
+    rota: '/differentials',
   },
 ];
 

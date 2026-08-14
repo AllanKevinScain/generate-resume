@@ -1,14 +1,14 @@
-import { Button, Skeleton } from "@/components";
-import { queryKeys, useCreateWorkMutation } from "@/hooks";
-import type { CreateWorkInput } from "@/schemas";
-import { workService } from "@/services";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { HandleExcludeModal, HeaderCreateItem } from "../components";
-import { SectionItems } from "../components/section-items";
-import { HandleWorkModal } from "./handle-modal";
+import { Button, Skeleton } from '@/components';
+import { queryKeys, useCreateWorkMutation } from '@/hooks';
+import type { CreateWorkInput } from '@/schemas';
+import { workService } from '@/services';
+import { useQuery } from '@tanstack/react-query';
+import { ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { HandleExcludeModal, HeaderCreateItem } from '../components';
+import { SectionItems } from '../components/section-items';
+import { HandleWorkModal } from './handle-modal';
 
 export function WorksManagementPage() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function WorksManagementPage() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isExcludeOpen, setIsExcludeOpen] = useState(false);
-  const [selectedWork, setSelectedWork] = useState<string>("");
+  const [selectedWork, setSelectedWork] = useState<string>('');
 
   const works = useQuery({
     queryKey: queryKeys.works,
@@ -69,14 +69,14 @@ export function WorksManagementPage() {
     <>
       <div className="mx-auto max-w-7xl px-6 pt-25 pb-10">
         <header className="mb-8 flex flex-col gap-4">
-          <Button.ghost onClick={() => navigate("/admin")}>
+          <Button.ghost onClick={() => navigate('/admin')}>
             <ArrowLeft size={20} />
             Back to Dashboard
           </Button.ghost>
 
           <HeaderCreateItem
             handleAdd={() => {
-              setSelectedWork("");
+              setSelectedWork('');
               handleFormModal();
             }}
             title="Manage Events and Jobs"
