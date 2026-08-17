@@ -25,10 +25,10 @@ export function HandleExcludeModal(props: HandleExcludeModalProps) {
         </Text>
 
         <div className="mt-4 flex justify-end gap-3">
-          <Button.outline type="button" onClick={onClose}>
+          <Button variant="outline" type="button" onClick={onClose}>
             Cancel
-          </Button.outline>
-          <Button.solid onClick={onSubmit}>Save</Button.solid>
+          </Button>
+          <Button variant="primary" onClick={onSubmit}>Save</Button>
         </div>
       </div>
     </dialog>

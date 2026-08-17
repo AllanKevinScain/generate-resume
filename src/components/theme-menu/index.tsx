@@ -25,11 +25,11 @@ export function ThemeMenu(props: ThemeMenurops) {
     )}>
       <div className="flex gap-4">
         {type === 'inline' ? (
-<Button.outline type="button" onClick={() => setOpen(!open)}>
+<Button variant="outline" type="button" onClick={() => setOpen(!open)}>
                         <div className="space-y-1">
             {optionsTheme[theme].icon || <MdLightMode size={22} />}
           </div>
-                      </Button.outline>
+                      </Button>
         ) : (<button
           onClick={() => setOpen(!open)}
           className={twMerge(

@@ -49,12 +49,12 @@ export function ResourceManagementModal(props: ResourceManagementModalProps) {
         <ResourceFormFields config={config} values={values} onChange={onChange} />
 
         <div className="flex justify-end gap-3">
-          <Button.outline type="button" onClick={onClose} disabled={isSaving}>
+          <Button variant="outline" type="button" onClick={onClose} disabled={isSaving}>
             Cancelar
-          </Button.outline>
-          <Button.solid type="submit" disabled={isSaving}>
+          </Button>
+          <Button variant="primary" type="submit" disabled={isSaving}>
             {isSaving ? 'Salvando...' : 'Salvar'}
-          </Button.solid>
+          </Button>
         </div>
       </form>
     </Modal>

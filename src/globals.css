@@ -26,6 +26,25 @@ html {
   --color-primary: #2563eb;
   --color-secondary: #9333ea;
   --color-border: #e4e4e7;
+
+  /* Safira UI: integração com os temas do projeto */
+  --sf-color-canvas: var(--color-bg);
+  --sf-color-surface: var(--color-bg);
+  --sf-color-surface-raised: color-mix(in srgb, var(--color-bg) 92%, var(--color-text));
+  --sf-color-text: var(--color-text);
+  --sf-color-text-soft: color-mix(in srgb, var(--color-text) 70%, transparent);
+  --sf-color-primary: var(--color-primary);
+  --sf-color-primary-hover: color-mix(in srgb, var(--color-primary) 82%, var(--color-text));
+  --sf-color-primary-soft: color-mix(in srgb, var(--color-primary) 16%, transparent);
+  --sf-color-on-primary: #ffffff;
+  --sf-color-border: var(--color-border);
+  --sf-color-border-strong: color-mix(in srgb, var(--color-border) 70%, var(--color-text));
+  --sf-color-focus: var(--color-primary);
+}
+
+[data-theme="minecraft"],
+[data-theme="alura"] {
+  --sf-color-on-primary: #09090b;
 }
 
 /* LIGHT */

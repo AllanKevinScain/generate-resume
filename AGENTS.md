@@ -57,6 +57,7 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 
 ## Padrões importantes
 
+- Botões usam um único componente com `variant`: `primary`, `outline`, `ghost`, `danger` ou `unstyled`; não use APIs estáticas como `Button.outline`.
 - O `ThemeMenu` aparece no header quando o usuario esta logado.
 - Quando o usuario nao esta logado, o `ThemeMenu` vem do provider principal.
 - A pagina `/projects` apenas lista repositorios publicos do GitHub.

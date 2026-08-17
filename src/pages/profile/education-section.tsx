@@ -36,7 +36,7 @@ export function EducationSection(props: EducationSectionProps) {
           <h2 className="text-2xl font-semibold">Formação acadêmica</h2>
           <p className="mt-1 text-sm opacity-70">Cadastre cursos e suas situações atuais.</p>
         </div>
-        <Button.solid type="button" onClick={onAdd}>+ Adicionar formação</Button.solid>
+        <Button variant="primary" type="button" onClick={onAdd}>+ Adicionar formação</Button>
       </header>
 
       {isLoading && <p className="opacity-70">Carregando formações...</p>}
@@ -66,10 +66,10 @@ export function EducationSection(props: EducationSectionProps) {
             <p className="mt-3 whitespace-pre-wrap text-sm opacity-75">{education.completionNote}</p>
           )}
           <div className="mt-5 flex gap-3">
-            <Button.outline type="button" onClick={() => onEdit(education)}>Editar</Button.outline>
-            <Button.ghost type="button" className="text-red-500" onClick={() => onRemove(education)}>
+            <Button variant="outline" type="button" onClick={() => onEdit(education)}>Editar</Button>
+            <Button variant="ghost" type="button" className="text-red-500" onClick={() => onRemove(education)}>
               Excluir
-            </Button.ghost>
+            </Button>
           </div>
         </article>
       ))}

@@ -59,9 +59,9 @@ export function LoginPage() {
             </Text>
           )}
 
-          <Button.solid type="submit" className="mt-4">
+          <Button variant="primary" type="submit" className="mt-4">
             Login
-          </Button.solid>
+          </Button>
         </form>
       </div>
     </div>

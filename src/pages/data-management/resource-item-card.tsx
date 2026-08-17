@@ -17,12 +17,12 @@ export function ResourceItemCard({ item, onEdit, onRemove }: ResourceItemCardPro
         <p className="mt-2 whitespace-pre-wrap text-sm opacity-75">{String(item.description)}</p>
       )}
       <div className="mt-5 flex flex-wrap gap-3">
-        <Button.outline type="button" onClick={() => onEdit(item)}>
+        <Button variant="outline" type="button" onClick={() => onEdit(item)}>
           Editar
-        </Button.outline>
-        <Button.ghost type="button" onClick={() => onRemove(item)} className="text-red-500">
+        </Button>
+        <Button variant="ghost" type="button" onClick={() => onRemove(item)} className="text-red-500">
           Excluir
-        </Button.ghost>
+        </Button>
       </div>
     </article>
   );

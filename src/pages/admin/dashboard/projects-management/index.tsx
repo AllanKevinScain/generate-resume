@@ -69,10 +69,10 @@ export function ProjectsManagementPage() {
     <>
       <div className="mx-auto max-w-7xl px-6 pt-25 pb-10">
         <header className="mb-8 flex flex-col gap-4">
-          <Button.ghost onClick={() => navigate('/admin')}>
+          <Button variant="ghost" onClick={() => navigate('/admin')}>
             <ArrowLeft size={20} />
             Back to Dashboard
-          </Button.ghost>
+          </Button>
 
           <HeaderCreateItem
             handleAdd={() => {

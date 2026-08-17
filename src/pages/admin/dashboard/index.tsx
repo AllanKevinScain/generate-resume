@@ -12,7 +12,7 @@ export function DashboardPage() {
         <Text variant="h1" className="text-3xl font-bold text-(--color-text)">
           Admin dashboard
         </Text>
-        <Button.outline onClick={logout}>Out</Button.outline>
+        <Button variant="outline" onClick={logout}>Out</Button>
       </header>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">

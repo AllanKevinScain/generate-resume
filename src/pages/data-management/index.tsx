@@ -66,14 +66,14 @@ export function DataManagementPage() {
 
           <nav className="flex flex-wrap gap-2" aria-label="Tipos de conteúdo">
             {resources.map((resource) => (
-              <Button.outline
+              <Button variant="outline"
                 type="button"
                 key={resource.table}
                 onClick={() => setActiveTable(resource.table)}
                 className={activeTable === resource.table ? 'border-(--color-primary)' : undefined}
               >
                 {resource.label}
-              </Button.outline>
+              </Button>
             ))}
           </nav>
         </header>

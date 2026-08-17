@@ -22,10 +22,10 @@ export function HeaderFormPage(props: HeaderFormPageProps) {
         </p>
       </div>
 
-      <Button.solid type="button" onClick={onAdicionar} className="justify-center md:self-center">
+      <Button variant="primary" type="button" onClick={onAdicionar} className="justify-center md:self-center">
         +
         Adicionar
-      </Button.solid>
+      </Button>
     </header>
   );
 }

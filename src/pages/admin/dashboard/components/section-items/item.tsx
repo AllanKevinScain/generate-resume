@@ -40,22 +40,22 @@ export function Item(props: ItemProps) {
 
         <div className="flex gap-2 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100">
           {onEdit && (
-            <Button.ghost
+            <Button variant="ghost"
               onClick={() => onEdit(id)}
               aria-label={`Update ${displayName}`}
               className="h-auto p-2 text-(--color-text) hover:text-(--color-primary)"
             >
               <Pencil size={18} />
-            </Button.ghost>
+            </Button>
           )}
           {onDelete && (
-            <Button.ghost
+            <Button variant="ghost"
               onClick={() => onDelete(id)}
               aria-label={`Remove ${displayName}`}
               className="h-auto p-2 text-red-500 hover:text-red-600"
             >
               <Trash2 size={18} />
-            </Button.ghost>
+            </Button>
           )}
         </div>
       </div>

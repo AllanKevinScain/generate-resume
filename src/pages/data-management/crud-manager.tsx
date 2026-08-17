@@ -93,9 +93,9 @@ export function CrudManager({ resource }: { resource: Resource }) {
           <p className="mt-1 text-sm opacity-70">{resource.description}</p>
         </div>
 
-        <Button.solid type="button" onClick={openCreateModal} className="justify-center">
+        <Button variant="primary" type="button" onClick={openCreateModal} className="justify-center">
           Adicionar novo item
-        </Button.solid>
+        </Button>
 
         {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
       </div>

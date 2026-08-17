@@ -14,10 +14,10 @@ export function HeaderCreateItem(props: HeaderCreateItemProps) {
       <Text variant="h1" className="text-3xl font-bold text-(--color-text)">
         {title}
       </Text>
-      <Button.solid onClick={handleAdd} className="flex items-center gap-2">
+      <Button variant="primary" onClick={handleAdd} className="flex items-center gap-2">
         <Plus size={20} />
         {buttonDescription}
-      </Button.solid>
+      </Button>
     </div>
   );
 }

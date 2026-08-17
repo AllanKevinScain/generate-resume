@@ -59,7 +59,7 @@ export function HandleDifferentialModal(props: HandleDifferentialModalProps) {
         </div>
 
         <div className="mt-4 flex justify-end gap-3">
-          <Button.outline
+          <Button variant="outline"
             type="button"
             onClick={() => {
               onClose();
@@ -67,8 +67,8 @@ export function HandleDifferentialModal(props: HandleDifferentialModalProps) {
             }}
           >
             Cancel
-          </Button.outline>
-          <Button.solid type="submit">Save</Button.solid>
+          </Button>
+          <Button variant="primary" type="submit">Save</Button>
         </div>
       </form>
     </dialog>
