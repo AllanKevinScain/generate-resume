@@ -1,4 +1,4 @@
-import { Input, Textarea } from '@/components';
+import { Field, Textarea } from '@/components';
 import { motion } from 'framer-motion';
 import { HiChevronDown } from 'react-icons/hi2';
 import type { ChangeEvent } from 'react';
@@ -72,12 +72,12 @@ export function ResourceFormFields(props: ResourceFormFieldsProps) {
         }
 
         return (
-          <Input
-            key={field.name}
-            {...common}
-            type={field.kind === 'url' ? 'url' : 'text'}
-            className={field.name === 'title' ? 'md:col-span-2' : undefined}
-          />
+          <div key={field.name} className={field.name === 'title' ? 'md:col-span-2' : undefined}>
+            <Field
+              {...common}
+              type={field.kind === 'url' ? 'url' : 'text'}
+            />
+          </div>
         );
       })}
     </div>

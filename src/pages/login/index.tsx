@@ -1,4 +1,4 @@
-import { Button, Input } from '@/components';
+import { Button, Field } from '@/components';
 import { useAuth } from '@/hooks';
 import { motion } from 'framer-motion';
 import { useState, type FormEvent } from 'react';
@@ -49,7 +49,7 @@ export function LoginPage() {
           Entre com o GitHub ou use suas credenciais do Supabase.
         </p>
 
-        <Button.outline
+        <Button variant="outline"
           type="button"
           disabled={isSubmitting}
           className="mt-8 w-full justify-center"
@@ -57,7 +57,7 @@ export function LoginPage() {
         >
           <FaGithub aria-hidden="true" size={20} />
           Entrar com GitHub
-        </Button.outline>
+        </Button>
 
         <div className="my-6 flex items-center gap-3 text-xs opacity-60">
           <span className="h-px flex-1 bg-(--color-border)" />
@@ -66,7 +66,8 @@ export function LoginPage() {
         </div>
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <Input
+          <Field
+            required
             label="E-mail"
             type="email"
             autoComplete="email"
@@ -74,12 +75,13 @@ export function LoginPage() {
             onChange={(event) => setEmail(event.target.value)}
           />
           <div className="relative">
-            <Input
+            <Field
+              required
               label="Senha"
               type={isPasswordVisible ? 'text' : 'password'}
               autoComplete="current-password"
               value={password}
-              classNameInput="pr-12"
+              className="pr-12"
               onChange={(event) => setPassword(event.target.value)}
             />
             <button
@@ -92,9 +94,9 @@ export function LoginPage() {
               {isPasswordVisible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
             </button>
           </div>
-          <Button.solid type="submit" disabled={isSubmitting} className="justify-center">
+          <Button variant="primary" type="submit" disabled={isSubmitting} className="justify-center">
             {isSubmitting ? 'Entrando...' : 'Entrar'}
-          </Button.solid>
+          </Button>
         </form>
       </motion.div>
     </main>

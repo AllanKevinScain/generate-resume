@@ -1,4 +1,4 @@
-import { Input } from '@/components';
+import { Field } from '@/components';
 import type { GitHubRepositoryWithTechnologies } from '@/services/github-repositories';
 import { useState, type ChangeEvent } from 'react';
 import { FiChevronLeft, FiChevronRight, FiSearch } from 'react-icons/fi';
@@ -44,12 +44,12 @@ export function GitHubRepositoryList({
           className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 opacity-60"
           size={18}
         />
-        <Input
+        <Field
+          label={<span className="sf-visually-hidden">Pesquisar repositórios</span>}
           required={false}
-          aria-label="Pesquisar repositórios"
           placeholder="Pesquisar por nome, descrição ou tecnologia"
           value={searchTerm}
-          classNameInput="pl-11"
+          className="pl-11"
           onChange={handleSearch}
         />
       </div>

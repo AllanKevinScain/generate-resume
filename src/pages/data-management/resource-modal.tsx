@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from '@/components';
+import { Button, Field, Textarea } from '@/components';
 import type { Resource, ResourceFormValues } from './data-management.type';
 import { type ChangeEvent, type FormEvent } from 'react';
 interface ResourceModalProps {
@@ -38,9 +38,9 @@ export function ResourceModal(props: ResourceModalProps) {
             <h2 className="text-2xl font-semibold text-(--color-text)">{title}</h2>
             <p className="mt-1 text-sm opacity-70">{resource.label}</p>
           </div>
-          <Button.ghost type="button" onClick={onClose}>
+          <Button variant="ghost" type="button" onClick={onClose}>
             Fechar
-          </Button.ghost>
+          </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -88,12 +88,12 @@ export function ResourceModal(props: ResourceModalProps) {
             }
 
             return (
-              <Input
-                key={field.name}
-                {...common}
-                type={field.kind === 'url' ? 'url' : 'text'}
-                className={field.name === 'title' ? 'md:col-span-2' : undefined}
-              />
+              <div key={field.name} className={field.name === 'title' ? 'md:col-span-2' : undefined}>
+                <Field
+                  {...common}
+                  type={field.kind === 'url' ? 'url' : 'text'}
+                />
+              </div>
             );
           })}
         </div>
@@ -101,16 +101,16 @@ export function ResourceModal(props: ResourceModalProps) {
         {error && <p role="alert" className="mt-4 text-sm text-red-500">{error}</p>}
 
         <div className="mt-6 flex justify-end gap-3">
-          <Button.outline
+          <Button variant="outline"
             type="button"
             onClick={onClose}
             disabled={isSaving}
           >
             Cancelar
-          </Button.outline>
-          <Button.solid type="submit" disabled={isSaving}>
+          </Button>
+          <Button variant="primary" type="submit" disabled={isSaving}>
             {isSaving ? 'Salvando...' : 'Salvar'}
-          </Button.solid>
+          </Button>
         </div>
       </form>
     </dialog>

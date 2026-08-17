@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Textarea } from '@/components';
+import { Button, Field, Modal, Textarea } from '@/components';
 import type { FormEvent } from 'react';
 import { EDUCATION_STATUS_LABELS } from './constants/profile';
 import type { Education, EducationFormValues, EducationStatus } from './profile.types';
@@ -27,17 +27,19 @@ export function EducationModal(props: EducationModalProps) {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          <Input
+          <Field
+            required
             label="Instituição"
             value={values.institution}
             onChange={(event) => onChange('institution', event.target.value)}
           />
-          <Input
+          <Field
+            required
             label="Curso"
             value={values.course}
             onChange={(event) => onChange('course', event.target.value)}
           />
-          <Input
+          <Field
             label="Tipo de formação"
             required={false}
             placeholder="Graduação, técnico, pós-graduação..."
@@ -57,14 +59,14 @@ export function EducationModal(props: EducationModalProps) {
               ))}
             </select>
           </label>
-          <Input
+          <Field
             label="Data de início"
             type="date"
             required={false}
             value={values.startedAt}
             onChange={(event) => onChange('startedAt', event.target.value)}
           />
-          <Input
+          <Field
             label="Data de término"
             type="date"
             required={false}
@@ -82,10 +84,10 @@ export function EducationModal(props: EducationModalProps) {
         />
 
         <div className="flex justify-end gap-3">
-          <Button.outline type="button" onClick={onClose} disabled={isSaving}>Cancelar</Button.outline>
-          <Button.solid type="submit" disabled={isSaving}>
+          <Button variant="outline" type="button" onClick={onClose} disabled={isSaving}>Cancelar</Button>
+          <Button variant="primary" type="submit" disabled={isSaving}>
             {isSaving ? 'Salvando...' : 'Salvar formação'}
-          </Button.solid>
+          </Button>
         </div>
       </form>
     </Modal>

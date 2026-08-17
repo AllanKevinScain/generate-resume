@@ -1,4 +1,4 @@
-import { Button, Input, Textarea } from '@/components';
+import { Button, Field, Textarea } from '@/components';
 import type { FormEvent } from 'react';
 import {
   ADDRESS_FIELDS,
@@ -22,13 +22,12 @@ function Fields({
   onChange,
 }: Pick<ProfileFormProps, 'values' | 'onChange'> & { fields: ProfileField[] }) {
   return fields.map((field) => (
-    <Input
+    <Field
       key={field.name}
-      label={field.label}
+      label={field.name === 'phone' ? `${field.label} (+55)` : field.label}
       type={field.type ?? 'text'}
       required={field.required ?? false}
       autoComplete={field.autoComplete}
-      startAdornment={field.name === 'phone' ? '+55' : undefined}
       value={field.name === 'phone' ? formatPhone(values[field.name]) : values[field.name]}
       onChange={(event) => {
         const value = field.name === 'phone' ? formatPhone(event.target.value) : event.target.value;
@@ -71,9 +70,9 @@ export function ProfileForm({ values, isSaving, onChange, onSubmit }: ProfileFor
       />
 
       <div className="flex justify-end">
-        <Button.solid type="submit" disabled={isSaving}>
+        <Button variant="primary" type="submit" disabled={isSaving}>
           {isSaving ? 'Salvando...' : 'Salvar perfil'}
-        </Button.solid>
+        </Button>
       </div>
     </form>
   );
