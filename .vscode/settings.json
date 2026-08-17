@@ -17,7 +17,7 @@
   },
 
   //Terminal settings
-  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
   "terminal.integrated.suggest.enabled": true,
   "terminal.integrated.suggest.quickSuggestions": {
     "commands": "on",
