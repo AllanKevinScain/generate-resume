@@ -1,5 +1,5 @@
 import { educationService } from '@/services/education';
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { EMPTY_EDUCATION } from '../constants/profile';
 import type { Education, EducationFormValues } from '../profile.types';
@@ -44,7 +44,7 @@ export function useEducationManager({ userId, refetch }: UseEducationManagerProp
     setValues((current) => ({ ...current, [field]: value }));
   }
 
-  async function save(event: FormEvent<HTMLFormElement>) {
+  async function save(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!userId) return;
 

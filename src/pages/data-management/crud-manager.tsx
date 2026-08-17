@@ -1,6 +1,6 @@
 import { Button } from '@/components';
 import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
-import { useMemo, useState, type FormEvent } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { ResourceModal } from './resource-modal';
 import { ResourceItemCard } from './resource-item-card';
@@ -44,7 +44,7 @@ export function CrudManager({ resource }: { resource: Resource }) {
     setValues(initialValues);
   }
 
-  async function save(event: FormEvent<HTMLFormElement>) {
+  async function save(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSaving(true);
     setError(null);

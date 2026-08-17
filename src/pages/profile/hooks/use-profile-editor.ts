@@ -1,6 +1,6 @@
 import { useAuth } from '@/hooks';
 import { profileService } from '@/services/profile';
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { EMPTY_PROFILE, MAX_PROFILE_PHOTO_SIZE } from '../constants/profile';
 import type { Profile, ProfileFormValues } from '../profile.types';
@@ -52,7 +52,7 @@ export function useProfileEditor(props: UseProfileEditorProps) {
     void profileService
       .getAvatarUrl(profile.avatarPath)
       .then((url) => {
-        if (active) setAvatarUrl(url);
+        if (active && url) setAvatarUrl(url);
       })
       .catch((caught: unknown) => {
         toast.error(caught instanceof Error ? caught.message : 'Não foi possível carregar a foto.');
@@ -76,7 +76,7 @@ export function useProfileEditor(props: UseProfileEditorProps) {
     setAvatarFile(file);
   }
 
-  async function save(event: FormEvent<HTMLFormElement>) {
+  async function save(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!userId) return;
 

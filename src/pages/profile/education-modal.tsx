@@ -1,5 +1,4 @@
 import { Button, Field, Modal, Textarea } from '@/components';
-import type { FormEvent } from 'react';
 import { EDUCATION_STATUS_LABELS } from './constants/profile';
 import type { Education, EducationFormValues, EducationStatus } from './profile.types';
 
@@ -10,7 +9,7 @@ type EducationModalProps = {
   values: EducationFormValues;
   onClose: () => void;
   onChange: (field: keyof EducationFormValues, value: string) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
 };
 
 export function EducationModal(props: EducationModalProps) {

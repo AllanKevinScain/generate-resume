@@ -1,7 +1,7 @@
 import { Button, Field } from '@/components';
 import { useAuth } from '@/hooks';
 import { motion } from 'framer-motion';
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { toast } from 'sonner';
@@ -14,7 +14,7 @@ export function LoginPage() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
     const error = await login(email.trim(), password);

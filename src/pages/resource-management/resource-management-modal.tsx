@@ -1,5 +1,4 @@
 import { Button, Modal } from '@/components';
-import type { FormEvent } from 'react';
 import { ResourceFormFields } from './resource-form-fields';
 import type {
   ResourceConfig,
@@ -14,7 +13,7 @@ type ResourceManagementModalProps = {
   selectedItem: ResourceItem | null;
   values: ResourceFormValues;
   onClose: () => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
   onChange: (field: string, value: string) => void;
 };
 

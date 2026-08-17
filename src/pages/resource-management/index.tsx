@@ -1,7 +1,7 @@
 import { HeaderFormPage } from '@/components';
 import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { ResourceManagementModal } from './resource-management-modal';
 import { ResourceItemCard } from './resource-item-card';
@@ -46,7 +46,7 @@ export function ResourceManagementPage({ config }: { config: ResourceConfig }) {
     setValues(initialValues);
   }
 
-  async function save(event: FormEvent<HTMLFormElement>) {
+  async function save(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSaving(true);
 

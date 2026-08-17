@@ -1,5 +1,4 @@
 import { Button, Field, Textarea } from '@/components';
-import type { FormEvent } from 'react';
 import {
   ADDRESS_FIELDS,
   PERSONAL_FIELDS,
@@ -13,7 +12,7 @@ type ProfileFormProps = {
   values: ProfileFormValues;
   isSaving: boolean;
   onChange: (field: keyof ProfileFormValues, value: string) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
 };
 
 function Fields({

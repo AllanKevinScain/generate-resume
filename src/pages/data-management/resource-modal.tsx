@@ -1,6 +1,6 @@
 import { Button, Field, Textarea } from '@/components';
 import type { Resource, ResourceFormValues } from './data-management.type';
-import { type ChangeEvent, type FormEvent } from 'react';
+import { type ChangeEvent } from 'react';
 interface ResourceModalProps {
   resource: Resource;
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface ResourceModalProps {
   error: string | null;
   isSaving: boolean;
   onClose: () => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
   onChange: (field: string, value: string) => void;
 }
 
