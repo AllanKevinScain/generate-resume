@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { listPublicGitHubRepositories } from '@/services/github-repositories';
-import { GitHubRepositoryCard } from './github-repository-card';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
+import { GitHubRepositoryList } from './github-repository-list';
+import { useGitHubRepositories } from './hooks/use-github-repositories';
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat('pt-BR', {
@@ -9,15 +10,12 @@ function formatDate(value: string) {
 }
 
 export function ProjectsPage() {
-  const username = import.meta.env.VITE_GITHUB_USERNAME?.trim() ?? '';
-
-  const query = useQuery({
-    queryKey: ['github-repositories', username],
-    queryFn: () => listPublicGitHubRepositories(username),
-    enabled: Boolean(username),
-  });
-
+  const { query, isGitHubConnected } = useGitHubRepositories();
   const repositories = query.data ?? [];
+
+  useEffect(() => {
+    if (query.error instanceof Error) toast.error(query.error.message);
+  }, [query.error]);
 
   return (
     <main className="min-h-screen bg-(--color-bg) px-4 py-10 text-(--color-text)">
@@ -30,26 +28,19 @@ export function ProjectsPage() {
           </p>
         </header>
 
-        {!username && (
+        {!isGitHubConnected && (
           <p role="alert" className="rounded-2xl border border-yellow-500/40 bg-yellow-500/10 p-4 text-sm">
-            Defina `VITE_GITHUB_USERNAME` no ambiente para carregar seus repositórios.
+            Saia da conta atual e entre com o GitHub para carregar seus repositórios.
           </p>
         )}
 
         {query.isLoading && <p className="opacity-70">Carregando repositórios...</p>}
-        {query.error instanceof Error && <p role="alert" className="text-sm text-red-500">{query.error.message}</p>}
 
-        <section className="grid gap-4 md:grid-cols-2">
-          {repositories.map((repository) => (
-            <GitHubRepositoryCard
-              key={repository.id}
-              repository={repository}
-              formatDate={formatDate}
-            />
-          ))}
-        </section>
+        {repositories.length > 0 && (
+          <GitHubRepositoryList repositories={repositories} formatDate={formatDate} />
+        )}
 
-        {!query.isLoading && repositories.length === 0 && username && (
+        {!query.isLoading && repositories.length === 0 && isGitHubConnected && (
           <p className="opacity-70">Nenhum repositório encontrado para esse usuário.</p>
         )}
       </div>

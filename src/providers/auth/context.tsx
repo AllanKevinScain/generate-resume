@@ -3,8 +3,10 @@ import { createContext } from 'react';
 
 export type AuthContextType = {
   user: User | null;
+  githubToken: string | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<string | null>;
+  loginWithGitHub: () => Promise<string | null>;
   logout: () => Promise<void>;
 };
 

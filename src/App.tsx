@@ -4,11 +4,12 @@ import { useAuth } from '@/hooks';
 import { DashboardPage } from '@/pages/dashboard';
 import { DifferentialsPage } from '@/pages/differentials';
 import { LoginPage } from '@/pages/login';
+import { ProfilePage } from '@/pages/profile';
 import { ProjectsPage } from '@/pages/projects';
 import { ResumeEditorPage } from '@/pages/resume-editor';
 import { TechsPage } from '@/pages/techs';
-import { WorksPage } from '@/pages/works';
 import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'sonner';
 
 function AppShell() {
   const { logout } = useAuth();
@@ -44,8 +45,8 @@ function AppShell() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/techs" element={<TechsPage />} />
-          <Route path="/works" element={<WorksPage />} />
           <Route path="/differentials" element={<DifferentialsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/resume" element={<ResumeEditorPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -65,7 +66,12 @@ function App() {
     );
   }
 
-  return user ? <AppShell /> : <LoginPage />;
+  return (
+    <>
+      <Toaster position="top-right" richColors closeButton />
+      {user ? <AppShell /> : <LoginPage />}
+    </>
+  );
 }
 
 export default App;

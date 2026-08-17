@@ -4,6 +4,7 @@ import { footerDefaultValues, headerDefaultValues, type FooterSchemaType, type H
 import { generatePortfolioPDF } from '@/utils';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 type ResumeFormValues = {
   profile: HeaderSchemaType;
@@ -22,7 +23,6 @@ function Section(props: { title: string; children: React.ReactNode }) {
 export function ResumeEditorPage() {
   const { user } = useAuth();
   const { theme } = useTheme();
-  const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
   const { register, handleSubmit } = useForm<ResumeFormValues>({
@@ -39,7 +39,6 @@ export function ResumeEditorPage() {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    setError(null);
     setIsGenerating(true);
     try {
       await generatePortfolioPDF({
@@ -47,8 +46,9 @@ export function ResumeEditorPage() {
         footer: data.footer,
         theme,
       });
+      toast.success('PDF gerado com sucesso.');
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Não foi possível gerar o PDF.');
+      toast.error(caught instanceof Error ? caught.message : 'Não foi possível gerar o PDF.');
     } finally {
       setIsGenerating(false);
     }
@@ -89,7 +89,6 @@ export function ResumeEditorPage() {
             </div>
           </Section>
 
-          {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
           <Button.solid type="submit" disabled={isGenerating} className="justify-center self-end">
             {isGenerating ? 'Gerando PDF...' : 'Baixar currículo em PDF'}
           </Button.solid>

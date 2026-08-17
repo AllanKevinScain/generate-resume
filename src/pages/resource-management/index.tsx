@@ -1,7 +1,8 @@
 import { HeaderFormPage } from '@/components';
 import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
 import { useQuery } from '@tanstack/react-query';
-import { useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { toast } from 'sonner';
 import { ResourceManagementModal } from './resource-management-modal';
 import { ResourceItemCard } from './resource-item-card';
 import { createEmptyValues, createFormValues } from './resource-management-values';
@@ -22,6 +23,10 @@ export function ResourceManagementPage({ config }: { config: ResourceConfig }) {
   const items = query.data ?? [];
   const isLoading = query.isLoading || query.isPending;
   const loadError = query.error instanceof Error ? query.error.message : null;
+
+  useEffect(() => {
+    if (loadError) toast.error(loadError);
+  }, [loadError]);
 
   function openCreateModal() {
     setSelectedItem(null);
@@ -61,9 +66,10 @@ export function ResourceManagementPage({ config }: { config: ResourceConfig }) {
       }
 
       closeModal();
+      toast.success(selectedItem ? 'Registro atualizado com sucesso.' : 'Registro criado com sucesso.');
       await query.refetch();
     } catch (caught) {
-      console.error(caught);
+      toast.error(caught instanceof Error ? caught.message : 'Não foi possível salvar o registro.');
     } finally {
       setIsSaving(false);
     }
@@ -74,9 +80,10 @@ export function ResourceManagementPage({ config }: { config: ResourceConfig }) {
 
     try {
       await supabaseCrud.remove(config.table, item.id);
+      toast.success('Registro excluído com sucesso.');
       await query.refetch();
     } catch (caught) {
-      console.error(caught);
+      toast.error(caught instanceof Error ? caught.message : 'Não foi possível excluir o registro.');
     }
   }
 
@@ -88,7 +95,6 @@ export function ResourceManagementPage({ config }: { config: ResourceConfig }) {
         <section className="flex flex-col gap-3">
           {isLoading && <p className="opacity-70">Carregando...</p>}
           {!isLoading && items.length === 0 && <p className="opacity-70">{config.emptyMessage}</p>}
-          {loadError && <p role="alert" className="text-sm text-red-500">{loadError}</p>}
 
           {items.map((item) => (
             <ResourceItemCard

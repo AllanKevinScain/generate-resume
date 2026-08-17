@@ -1,27 +1,5 @@
+import { DASHBOARD_CARDS } from './constants/dashboard';
 import { Link } from 'react-router-dom';
-
-const cards = [
-  {
-    titulo: 'Projetos',
-    descricao: 'Gerenciar projetos',
-    rota: '/projects',
-  },
-  {
-    titulo: 'Tecnologias',
-    descricao: 'Gerenciar tecnologias',
-    rota: '/techs',
-  },
-  {
-    titulo: 'Experiências',
-    descricao: 'Gerenciar experiências de trabalho',
-    rota: '/works',
-  },
-  {
-    titulo: 'Diferenciais',
-    descricao: 'Gerenciar diferenciais',
-    rota: '/differentials',
-  },
-];
 
 export function DashboardPage() {
   return (
@@ -37,7 +15,7 @@ export function DashboardPage() {
         </header>
 
         <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {cards.map((card) => (
+          {DASHBOARD_CARDS.map((card) => (
             <Link
               key={card.rota}
               to={card.rota}

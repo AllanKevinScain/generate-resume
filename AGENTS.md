@@ -67,6 +67,8 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 
 - `src/pages/` para paginas
 - `src/components/` para componentes reutilizaveis
+- `constants/` dentro da raiz da funcionalidade para constantes de uso local
+- `src/constants/` somente para constantes compartilhadas entre funcionalidades
 - `src/services/` para integracoes com Supabase e GitHub
 - `src/providers/` para auth, tema e query client
 - `src/types/` para tipos compartilhados
@@ -77,6 +79,9 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 - Arquivos e pastas em `kebab-case`
 - Funcoes, variaveis e parametros em `camelCase`
 - Componentes e tipos em `PascalCase`
+- Constantes devem ficar separadas dos arquivos que as consomem.
+- Constantes exclusivas de uma funcionalidade devem ficar na pasta `constants/` dentro da raiz dessa funcionalidade (ex.: `src/pages/profile/constants/`).
+- Constantes compartilhadas entre funcionalidades devem ficar em `src/constants/`.
 - Usar aspas simples
 - Manter arquivos `.ts` e `.tsx` com no maximo 120 linhas, quando possivel
 
@@ -117,4 +122,3 @@ Rodar `npm run lint` para validar tudo isso antes de commitar.
 - Scripts disponíveis: `npm run dev` (desenvolvimento), `npm run build` (`tsc -b && vite build`), `npm run preview`, `npm run lint` (ESLint).
 - Não commitar `.env` (já está no `.gitignore`); usar `.env.example` como referência de variáveis esperadas.
 - Após alterar dependências (`package.json`), rodar `npm install` localmente antes de `npm run dev`/`build`.
-

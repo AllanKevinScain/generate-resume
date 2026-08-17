@@ -20,12 +20,25 @@ export type ProjectImportInput = {
   demo: string | null;
 };
 
-async function fetchRepositoryPage(username: string, page: number) {
+function getGitHubApiUrl() {
+  const githubApiUrl = import.meta.env.VITE_GITHUB_API_URL;
+
+  if (!githubApiUrl) {
+    throw new Error('Configure VITE_GITHUB_API_URL no ambiente.');
+  }
+
+  return githubApiUrl.replace(/\/$/, '');
+}
+
+async function fetchRepositoryPage(githubToken: string, page: number) {
+  const githubApiUrl = getGitHubApiUrl();
   const response = await fetch(
-    `https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100&page=${page}&sort=updated&direction=desc`,
+    `${githubApiUrl}/user/repos?visibility=public&affiliation=owner&per_page=100&page=${page}&sort=updated&direction=desc`,
     {
       headers: {
         Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${githubToken}`,
+        'X-GitHub-Api-Version': '2022-11-28',
       },
     },
   );
@@ -37,31 +50,12 @@ async function fetchRepositoryPage(username: string, page: number) {
   return (await response.json()) as GitHubRepository[];
 }
 
-async function fetchRepositoryTechnologies(languagesUrl: string) {
-  const response = await fetch(languagesUrl, {
-    headers: {
-      Accept: 'application/vnd.github+json',
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`GitHub retornou ${response.status} ao buscar linguagens.`);
-  }
-
-  const languages = (await response.json()) as Record<string, number>;
-
-  return Object.entries(languages)
-    .sort((left, right) => right[1] - left[1])
-    .slice(0, 4)
-    .map(([language]) => language);
-}
-
-export async function listPublicGitHubRepositories(username: string) {
+export async function listPublicGitHubRepositories(githubToken: string) {
   const repositories: GitHubRepository[] = [];
   let page = 1;
 
   while (true) {
-    const batch = await fetchRepositoryPage(username, page);
+    const batch = await fetchRepositoryPage(githubToken, page);
     repositories.push(...batch);
 
     if (batch.length < 100) {
@@ -71,12 +65,10 @@ export async function listPublicGitHubRepositories(username: string) {
     page += 1;
   }
 
-  const repositoriesWithTechnologies = await Promise.all(
-    repositories.map(async (repository) => ({
-      ...repository,
-      technologies: await fetchRepositoryTechnologies(repository.languages_url),
-    })),
-  );
+  const repositoriesWithTechnologies = repositories.map((repository) => ({
+    ...repository,
+    technologies: repository.language ? [repository.language] : [],
+  }));
 
   return repositoriesWithTechnologies as GitHubRepositoryWithTechnologies[];
 }

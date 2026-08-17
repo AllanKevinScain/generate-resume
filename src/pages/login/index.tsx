@@ -2,22 +2,31 @@ import { Button, Input } from '@/components';
 import { useAuth } from '@/hooks';
 import { motion } from 'framer-motion';
 import { useState, type FormEvent } from 'react';
+import { FaGithub } from 'react-icons/fa';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 
 export function LoginPage() {
-  const { login } = useAuth();
+  const { login, loginWithGitHub } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setError(null);
     setIsSubmitting(true);
-    setError(await login(email.trim(), password));
+    const error = await login(email.trim(), password);
+    if (error) toast.error(error);
+    else toast.success('Login realizado com sucesso.');
+    setIsSubmitting(false);
+  }
+
+  async function handleGitHubLogin() {
+    setIsSubmitting(true);
+    const error = await loginWithGitHub();
+    if (error) toast.error(error);
     setIsSubmitting(false);
   }
 
@@ -37,10 +46,26 @@ export function LoginPage() {
       >
         <h1 className="text-center text-2xl font-bold text-(--color-text)">Entrar na sua conta</h1>
         <p className="mt-2 text-center text-sm text-(--color-text) opacity-70">
-          Use seu e-mail e senha do Supabase para continuar.
+          Entre com o GitHub ou use suas credenciais do Supabase.
         </p>
 
-        <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
+        <Button.outline
+          type="button"
+          disabled={isSubmitting}
+          className="mt-8 w-full justify-center"
+          onClick={() => void handleGitHubLogin()}
+        >
+          <FaGithub aria-hidden="true" size={20} />
+          Entrar com GitHub
+        </Button.outline>
+
+        <div className="my-6 flex items-center gap-3 text-xs opacity-60">
+          <span className="h-px flex-1 bg-(--color-border)" />
+          <span>ou entre com e-mail</span>
+          <span className="h-px flex-1 bg-(--color-border)" />
+        </div>
+
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <Input
             label="E-mail"
             type="email"
@@ -67,7 +92,6 @@ export function LoginPage() {
               {isPasswordVisible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
             </button>
           </div>
-          {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
           <Button.solid type="submit" disabled={isSubmitting} className="justify-center">
             {isSubmitting ? 'Entrando...' : 'Entrar'}
           </Button.solid>

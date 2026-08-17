@@ -8,10 +8,9 @@ function toText(value: unknown) {
 }
 
 export async function getPortfolioPdfData(): Promise<PdfSections> {
-  const [projects, techs, works, differentials] = await Promise.all([
+  const [projects, techs, differentials] = await Promise.all([
     supabaseCrud.list('project'),
     supabaseCrud.list('tech'),
-    supabaseCrud.list('work'),
     supabaseCrud.list('differential'),
   ]);
 
@@ -43,12 +42,8 @@ export async function getPortfolioPdfData(): Promise<PdfSections> {
     },
     services_section: {
       title: 'Serviços',
-      description: 'Serviços carregados diretamente do Supabase.',
-      services: works.map((item) => ({
-        title: toText(item.title),
-        description: toText(item.description),
-        starting_price: '',
-      })),
+      description: 'Seção temporariamente desativada.',
+      services: [],
     },
   };
 }
