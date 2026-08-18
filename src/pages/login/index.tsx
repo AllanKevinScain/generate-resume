@@ -1,10 +1,10 @@
-import { Button, Input } from '@/components';
+import { Button, Field, Stack } from '@/components';
 import { useAuth } from '@/hooks';
 import { motion } from 'framer-motion';
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { toast } from 'sonner';
+import { toast } from '@/services/notifications';
 import { twMerge } from 'tailwind-merge';
 
 export function LoginPage() {
@@ -14,7 +14,7 @@ export function LoginPage() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
     const error = await login(email.trim(), password);
@@ -49,15 +49,16 @@ export function LoginPage() {
           Entre com o GitHub ou use suas credenciais do Supabase.
         </p>
 
-        <Button.outline
+        <Button
+          variant="outline"
           type="button"
           disabled={isSubmitting}
+          leadingIcon={<FaGithub aria-hidden="true" size={20} />}
           className="mt-8 w-full justify-center"
           onClick={() => void handleGitHubLogin()}
         >
-          <FaGithub aria-hidden="true" size={20} />
           Entrar com GitHub
-        </Button.outline>
+        </Button>
 
         <div className="my-6 flex items-center gap-3 text-xs opacity-60">
           <span className="h-px flex-1 bg-(--color-border)" />
@@ -65,36 +66,40 @@ export function LoginPage() {
           <span className="h-px flex-1 bg-(--color-border)" />
         </div>
 
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <Input
-            label="E-mail"
-            type="email"
-            autoComplete="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <div className="relative">
-            <Input
-              label="Senha"
-              type={isPasswordVisible ? 'text' : 'password'}
-              autoComplete="current-password"
-              value={password}
-              classNameInput="pr-12"
-              onChange={(event) => setPassword(event.target.value)}
+        <form onSubmit={handleSubmit}>
+          <Stack gap={4}>
+            <Field
+              required
+              label="E-mail"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
-            <button
-              type="button"
-              className="absolute right-4 bottom-3 text-(--color-text) opacity-70 transition-opacity hover:opacity-100"
-              aria-label={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
-              aria-pressed={isPasswordVisible}
-              onClick={() => setIsPasswordVisible((isVisible) => !isVisible)}
-            >
-              {isPasswordVisible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-            </button>
-          </div>
-          <Button.solid type="submit" disabled={isSubmitting} className="justify-center">
-            {isSubmitting ? 'Entrando...' : 'Entrar'}
-          </Button.solid>
+            <div className="relative">
+              <Field
+                required
+                label="Senha"
+                type={isPasswordVisible ? 'text' : 'password'}
+                autoComplete="current-password"
+                value={password}
+                className="pr-12"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Button
+                variant="unstyled"
+                type="button"
+                aria-label={isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'}
+                aria-pressed={isPasswordVisible}
+                leadingIcon={isPasswordVisible ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                className="absolute right-4 bottom-3 opacity-70 transition-opacity hover:opacity-100"
+                onClick={() => setIsPasswordVisible((isVisible) => !isVisible)}
+              />
+            </div>
+            <Button variant="primary" type="submit" disabled={isSubmitting} className="justify-center">
+              {isSubmitting ? 'Entrando...' : 'Entrar'}
+            </Button>
+          </Stack>
         </form>
       </motion.div>
     </main>

@@ -1,4 +1,4 @@
-import { Button, ThemeMenu } from '@/components';
+import { Button, SkipLink, ThemeMenu, ToastViewport } from '@/components';
 import { optionsTheme } from '@/data';
 import { useAuth } from '@/hooks';
 import { DashboardPage } from '@/pages/dashboard';
@@ -9,7 +9,6 @@ import { ProjectsPage } from '@/pages/projects';
 import { ResumeEditorPage } from '@/pages/resume-editor';
 import { TechsPage } from '@/pages/techs';
 import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
-import { Toaster } from 'sonner';
 
 function AppShell() {
   const { logout } = useAuth();
@@ -20,6 +19,7 @@ function AppShell() {
 
   return (
     <BrowserRouter>
+      <SkipLink href="#main-content">Pular para o conteúdo principal</SkipLink>
       <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
         <header className="relative top-0 z-20 border-b border-(--color-border) bg-(--color-bg)/95 backdrop-blur">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 ">
@@ -34,22 +34,24 @@ function AppShell() {
                 Currículo PDF
               </Link>
               <ThemeMenu items={themeItems} type="inline" />
-              <Button.outline type="button" onClick={() => void logout()}>
+              <Button variant="outline" type="button" onClick={() => void logout()}>
                 Sair
-              </Button.outline>
+              </Button>
             </nav>
           </div>
         </header>
 
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/techs" element={<TechsPage />} />
-          <Route path="/differentials" element={<DifferentialsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/resume" element={<ResumeEditorPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <div id="main-content" tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/techs" element={<TechsPage />} />
+            <Route path="/differentials" element={<DifferentialsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/resume" element={<ResumeEditorPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );
@@ -68,7 +70,7 @@ function App() {
 
   return (
     <>
-      <Toaster position="top-right" richColors closeButton />
+      <ToastViewport />
       {user ? <AppShell /> : <LoginPage />}
     </>
   );

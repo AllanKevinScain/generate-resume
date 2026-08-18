@@ -1,5 +1,5 @@
-import { Button, Input, Modal, Textarea } from '@/components';
-import type { FormEvent } from 'react';
+import { Button, Field, Textarea } from '@/components';
+import { Grid, Modal } from 'safira-ui/react';
 import { EDUCATION_STATUS_LABELS } from './constants/profile';
 import type { Education, EducationFormValues, EducationStatus } from './profile.types';
 
@@ -10,34 +10,43 @@ type EducationModalProps = {
   values: EducationFormValues;
   onClose: () => void;
   onChange: (field: keyof EducationFormValues, value: string) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
 };
 
 export function EducationModal(props: EducationModalProps) {
   const { isOpen, isSaving, selectedEducation, values, onClose, onChange, onSubmit } = props;
+  const title = selectedEducation ? 'Editar formação' : 'Adicionar formação';
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <form onSubmit={onSubmit} className="flex max-h-[90vh] flex-col gap-5 overflow-y-auto rounded-3xl p-6 pr-14">
-        <div>
-          <h2 className="text-2xl font-semibold">
-            {selectedEducation ? 'Editar formação' : 'Adicionar formação'}
-          </h2>
-          <p className="mt-1 text-sm opacity-70">Informe os dados da formação acadêmica.</p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <Input
+    <Modal
+      id="education-modal"
+      open={isOpen}
+      title={title}
+      description="Informe os dados da formação acadêmica."
+      closeLabel={`Fechar ${title.toLowerCase()}`}
+      className={{
+        dialog: 'w-full max-w-2xl rounded-3xl border border-(--color-border) bg-(--color-bg) shadow-2xl',
+        content: 'max-h-[75vh] overflow-y-auto p-6',
+      }}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <form onSubmit={onSubmit} className="flex flex-col gap-5">
+        <Grid columns={2} gap={4} minItemWidth="16rem">
+          <Field
+            required
             label="Instituição"
             value={values.institution}
             onChange={(event) => onChange('institution', event.target.value)}
           />
-          <Input
+          <Field
+            required
             label="Curso"
             value={values.course}
             onChange={(event) => onChange('course', event.target.value)}
           />
-          <Input
+          <Field
             label="Tipo de formação"
             required={false}
             placeholder="Graduação, técnico, pós-graduação..."
@@ -45,7 +54,9 @@ export function EducationModal(props: EducationModalProps) {
             onChange={(event) => onChange('degree', event.target.value)}
           />
           <label className="flex flex-col gap-1 text-sm font-medium">
-            <span>Situação <span className="ml-1 text-red-500">*</span></span>
+            <span>
+              Situação <span className="ml-1 text-red-500">*</span>
+            </span>
             <select
               required
               value={values.status}
@@ -53,18 +64,20 @@ export function EducationModal(props: EducationModalProps) {
               className="rounded-xl border border-(--color-border) bg-(--color-bg) px-4 py-3 outline-none transition focus:border-(--color-primary)"
             >
               {Object.entries(EDUCATION_STATUS_LABELS).map(([status, label]) => (
-                <option key={status} value={status}>{label}</option>
+                <option key={status} value={status}>
+                  {label}
+                </option>
               ))}
             </select>
           </label>
-          <Input
+          <Field
             label="Data de início"
             type="date"
             required={false}
             value={values.startedAt}
             onChange={(event) => onChange('startedAt', event.target.value)}
           />
-          <Input
+          <Field
             label="Data de término"
             type="date"
             required={false}
@@ -72,7 +85,7 @@ export function EducationModal(props: EducationModalProps) {
             value={values.endedAt}
             onChange={(event) => onChange('endedAt', event.target.value)}
           />
-        </div>
+        </Grid>
 
         <Textarea
           label="Resultado / observação"
@@ -82,10 +95,12 @@ export function EducationModal(props: EducationModalProps) {
         />
 
         <div className="flex justify-end gap-3">
-          <Button.outline type="button" onClick={onClose} disabled={isSaving}>Cancelar</Button.outline>
-          <Button.solid type="submit" disabled={isSaving}>
+          <Button variant="outline" type="button" onClick={onClose} disabled={isSaving}>
+            Cancelar
+          </Button>
+          <Button variant="primary" type="submit" disabled={isSaving}>
             {isSaving ? 'Salvando...' : 'Salvar formação'}
-          </Button.solid>
+          </Button>
         </div>
       </form>
     </Modal>

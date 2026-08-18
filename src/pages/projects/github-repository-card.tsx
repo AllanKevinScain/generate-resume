@@ -1,4 +1,6 @@
+import { Badge, Card, Cluster, Stack } from '@/components';
 import type { GitHubRepositoryWithTechnologies } from '@/services/github-repositories';
+import { BiCodeAlt } from 'react-icons/bi';
 import {
   SiAngular,
   SiCplusplus,
@@ -23,7 +25,6 @@ import {
   SiTypescript,
   SiVuedotjs,
 } from 'react-icons/si';
-import { BiCodeAlt } from 'react-icons/bi';
 
 function getTechnologyIcon(technology: string) {
   const key = technology.toLowerCase();
@@ -63,24 +64,25 @@ export function GitHubRepositoryCard({
   formatDate: (value: string) => string;
 }) {
   return (
-    <article className="rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6">
+    <Card
+      elevation="raised"
+      className="rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6"
+    >
       <h2 className="text-xl font-semibold text-(--color-text)">{repository.name}</h2>
-      <p className="mt-2 min-h-12 text-sm opacity-75">{repository.description || 'Sem descrição informada.'}</p>
+      <p className="mt-2 min-h-12 text-sm opacity-75">
+        {repository.description || 'Sem descrição informada.'}
+      </p>
       {repository.technologies.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <Cluster gap={2} className="mt-4">
           {repository.technologies.map((technology) => (
-            <span
-              key={technology}
-              className="inline-flex items-center gap-2 rounded-full border border-(--color-border) px-3 py-1 text-xs opacity-90"
-              title={technology}
-            >
+            <Badge key={technology} title={technology} className="inline-flex items-center gap-2">
               {getTechnologyIcon(technology)}
               <span className="sr-only">{technology}</span>
-            </span>
+            </Badge>
           ))}
-        </div>
+        </Cluster>
       )}
-      <div className="mt-4 flex flex-col gap-2 text-sm">
+      <Stack gap={2} className="mt-4 text-sm">
         <a
           href={repository.html_url}
           target="_blank"
@@ -100,7 +102,7 @@ export function GitHubRepositoryCard({
           </a>
         ) : null}
         <span className="text-xs opacity-60">Atualizado em {formatDate(repository.updated_at)}</span>
-      </div>
-    </article>
+      </Stack>
+    </Card>
   );
 }

@@ -1,6 +1,8 @@
-import { Button, Input, Textarea } from '@/components';
+import { Button, Field, Textarea } from '@/components';
+import { Grid, Modal } from 'safira-ui/react';
+import { type ChangeEvent } from 'react';
 import type { Resource, ResourceFormValues } from './data-management.type';
-import { type ChangeEvent, type FormEvent } from 'react';
+
 interface ResourceModalProps {
   resource: Resource;
   isOpen: boolean;
@@ -9,41 +11,29 @@ interface ResourceModalProps {
   error: string | null;
   isSaving: boolean;
   onClose: () => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
   onChange: (field: string, value: string) => void;
 }
 
 export function ResourceModal(props: ResourceModalProps) {
   const { resource, isOpen, title, values, error, isSaving, onClose, onSubmit, onChange } = props;
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
-    <dialog
-      open
-      className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
+    <Modal
+      id="data-management-modal"
+      open={isOpen}
+      title={title}
+      description={resource.label}
+      className={{
+        dialog: 'w-full max-w-2xl rounded-3xl border border-(--color-border) bg-(--color-bg) shadow-2xl',
+        content: 'max-h-[75vh] overflow-y-auto p-6',
+      }}
+      onOpenChange={(open) => {
+        if (!open) onClose();
       }}
     >
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-2xl rounded-3xl border border-(--color-border) bg-(--color-bg) p-6 shadow-2xl"
-      >
-        <div className="mb-5 flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-(--color-text)">{title}</h2>
-            <p className="mt-1 text-sm opacity-70">{resource.label}</p>
-          </div>
-          <Button.ghost type="button" onClick={onClose}>
-            Fechar
-          </Button.ghost>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
+      <form onSubmit={onSubmit} className="flex flex-col gap-5">
+        <Grid columns={2} gap={4} minItemWidth="16rem">
           {resource.fields.map((field) => {
             const common = {
               label: field.label,
@@ -88,31 +78,28 @@ export function ResourceModal(props: ResourceModalProps) {
             }
 
             return (
-              <Input
-                key={field.name}
-                {...common}
-                type={field.kind === 'url' ? 'url' : 'text'}
-                className={field.name === 'title' ? 'md:col-span-2' : undefined}
-              />
+              <div key={field.name} className={field.name === 'title' ? 'md:col-span-2' : undefined}>
+                <Field {...common} type={field.kind === 'url' ? 'url' : 'text'} />
+              </div>
             );
           })}
-        </div>
+        </Grid>
 
-        {error && <p role="alert" className="mt-4 text-sm text-red-500">{error}</p>}
+        {error && (
+          <p role="alert" className="text-sm text-red-500">
+            {error}
+          </p>
+        )}
 
-        <div className="mt-6 flex justify-end gap-3">
-          <Button.outline
-            type="button"
-            onClick={onClose}
-            disabled={isSaving}
-          >
+        <div className="flex justify-end gap-3">
+          <Button variant="outline" type="button" onClick={onClose} disabled={isSaving}>
             Cancelar
-          </Button.outline>
-          <Button.solid type="submit" disabled={isSaving}>
+          </Button>
+          <Button variant="primary" type="submit" disabled={isSaving}>
             {isSaving ? 'Salvando...' : 'Salvar'}
-          </Button.solid>
+          </Button>
         </div>
       </form>
-    </dialog>
+    </Modal>
   );
 }

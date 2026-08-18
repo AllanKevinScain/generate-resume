@@ -102,6 +102,6 @@ export const profileService = {
       .createSignedUrl(path, 60 * 60);
 
     fail(error);
-    return data.signedUrl;
+    return data?.signedUrl;
   },
 };
