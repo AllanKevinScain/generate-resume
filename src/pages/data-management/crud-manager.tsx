@@ -1,10 +1,10 @@
-import { Button } from '@/components';
+import { Button, Card, Grid, Stack } from '@/components';
 import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
-import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { ResourceModal } from './resource-modal';
-import { ResourceItemCard } from './resource-item-card';
+import { useMemo, useState } from 'react';
 import type { Resource } from './data-management.type';
+import { ResourceItemCard } from './resource-item-card';
+import { ResourceModal } from './resource-modal';
 import { createEmptyValues, createFormValues } from './utils';
 
 export function CrudManager({ resource }: { resource: Resource }) {
@@ -14,7 +14,6 @@ export function CrudManager({ resource }: { resource: Resource }) {
   const [isSaving, setIsSaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const query = useQuery({
     queryKey: ['supabase-resource', resource.table],
     queryFn: () => supabaseCrud.list(resource.table),
@@ -48,22 +47,15 @@ export function CrudManager({ resource }: { resource: Resource }) {
     event.preventDefault();
     setIsSaving(true);
     setError(null);
-
     const payload = Object.fromEntries(
       resource.fields.map((field) => {
         const rawValue = values[field.name]?.trim() ?? '';
-        const shouldBeNull = field.optional && rawValue.length === 0;
-        return [field.name, shouldBeNull ? null : rawValue];
+        return [field.name, field.optional && !rawValue ? null : rawValue];
       }),
     );
-
     try {
-      if (selectedItem) {
-        await supabaseCrud.update(resource.table, selectedItem.id, payload);
-      } else {
-        await supabaseCrud.create(resource.table, payload);
-      }
-
+      if (selectedItem) await supabaseCrud.update(resource.table, selectedItem.id, payload);
+      else await supabaseCrud.create(resource.table, payload);
       closeModal();
       await query.refetch();
     } catch (caught) {
@@ -75,7 +67,6 @@ export function CrudManager({ resource }: { resource: Resource }) {
 
   async function remove(item: CrudRow) {
     if (!window.confirm('Deseja realmente excluir este registro?')) return;
-
     setError(null);
     try {
       await supabaseCrud.remove(resource.table, item.id);
@@ -86,45 +77,49 @@ export function CrudManager({ resource }: { resource: Resource }) {
   }
 
   return (
-    <section className="flex flex-col gap-8">
-      <div className="flex h-fit flex-col gap-4 rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_90%,transparent)] p-6">
-        <div>
-          <h2 className="text-2xl font-semibold text-(--color-text)">{resource.label}</h2>
-          <p className="mt-1 text-sm opacity-70">{resource.description}</p>
+    <section>
+      <Stack gap={7}>
+        <Card className="rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_90%,transparent)] p-6">
+          <Stack gap={4}>
+            <div>
+              <h2 className="text-2xl font-semibold text-(--color-text)">{resource.label}</h2>
+              <p className="mt-1 text-sm opacity-70">{resource.description}</p>
+            </div>
+            <Button variant="primary" type="button" onClick={openCreateModal} className="justify-center">
+              Adicionar novo item
+            </Button>
+            {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
+          </Stack>
+        </Card>
+
+        <div aria-live="polite">
+          {isLoading && <p className="opacity-70">Carregando...</p>}
+          {!isLoading && items.length === 0 && <p className="opacity-70">Nenhum registro cadastrado.</p>}
+          {loadError && <p role="alert" className="text-sm text-red-500">{loadError}</p>}
+          <Grid columns={2} gap={4} minItemWidth="18rem">
+            {items.map((item) => (
+              <ResourceItemCard
+                key={item.id}
+                item={item}
+                onEdit={openEditModal}
+                onRemove={(currentItem) => void remove(currentItem)}
+              />
+            ))}
+          </Grid>
         </div>
 
-        <Button variant="primary" type="button" onClick={openCreateModal} className="justify-center">
-          Adicionar novo item
-        </Button>
-
-        {error && <p role="alert" className="text-sm text-red-500">{error}</p>}
-      </div>
-
-      <div className="flex flex-col gap-3">
-        {isLoading && <p className="opacity-70">Carregando...</p>}
-        {!isLoading && items.length === 0 && <p className="opacity-70">Nenhum registro cadastrado.</p>}
-        {loadError && <p role="alert" className="text-sm text-red-500">{loadError}</p>}
-        {items.map((item) => (
-          <ResourceItemCard
-            key={item.id}
-            item={item}
-            onEdit={openEditModal}
-            onRemove={(currentItem) => void remove(currentItem)}
-          />
-        ))}
-      </div>
-
-      <ResourceModal
-        resource={resource}
-        isOpen={isModalOpen}
-        title={selectedItem ? 'Editar item' : 'Adicionar item'}
-        values={values}
-        error={error}
-        isSaving={isSaving}
-        onClose={closeModal}
-        onSubmit={save}
-        onChange={(field, value) => setValues((current) => ({ ...current, [field]: value }))}
-      />
+        <ResourceModal
+          resource={resource}
+          isOpen={isModalOpen}
+          title={selectedItem ? 'Editar item' : 'Adicionar item'}
+          values={values}
+          error={error}
+          isSaving={isSaving}
+          onClose={closeModal}
+          onSubmit={save}
+          onChange={(field, value) => setValues((current) => ({ ...current, [field]: value }))}
+        />
+      </Stack>
     </section>
   );
 }

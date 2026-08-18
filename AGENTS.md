@@ -12,21 +12,6 @@
 - Seja prático e vá direto ao ponto.
 - Organize a resposta com títulos, subtítulos e exemplos quando ajudar.
 
-## Confirmação obrigatória após alteração de arquivo
-
-Sempre que o agente/LLM fizer qualquer alteração em um arquivo, ele deve parar e perguntar ao usuário se o resultado ficou correto antes de continuar para a próxima alteração.
-
-Após alterar arquivo, responda obrigatoriamente neste formato:
-
-```txt
-Alterei o arquivo: caminho/do/arquivo
-
-O resultado era esse?
-
-1. Sim, este era o resultado, pode continuar.
-2. Quero ajustar algo: descreva o que deseja alterar.
-```
-
 ## O que este projeto é
 
 Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentica no Supabase, gerencia cadastros em paginas dedicadas, consome repositorios publicos do GitHub para a pagina de projetos e gera PDF com os dados do Supabase.
@@ -37,7 +22,6 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 - Ser direto, claro e objetivo.
 - Nao inventar informacoes. Se algo estiver ambigio, perguntar antes de alterar arquivos.
 - Fazer mudancas pequenas e incrementais.
-- Depois de alterar um arquivo, parar e pedir confirmacao antes de seguir para outra alteracao.
 
 ## Stack atual
 

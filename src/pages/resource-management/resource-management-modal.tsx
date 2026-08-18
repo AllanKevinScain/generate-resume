@@ -1,4 +1,5 @@
-import { Button, Modal } from '@/components';
+import { Button } from '@/components';
+import { Modal } from 'safira-ui/react';
 import { ResourceFormFields } from './resource-form-fields';
 import type {
   ResourceConfig,
@@ -29,22 +30,24 @@ export function ResourceManagementModal(props: ResourceManagementModalProps) {
     onChange,
   } = props;
 
-  if (!isOpen) {
-    return null;
-  }
+  const title = selectedItem ? 'Editar item' : 'Adicionar item';
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <form onSubmit={onSubmit} className="flex flex-col gap-5 rounded-3xl p-6 pr-14">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-(--color-text)">
-              {selectedItem ? 'Editar item' : 'Adicionar item'}
-            </h2>
-            <p className="mt-1 text-sm opacity-70">{config.title}</p>
-          </div>
-        </div>
-
+    <Modal
+      id="resource-management-modal"
+      open={isOpen}
+      title={title}
+      description={config.title}
+      closeLabel={`Fechar ${title.toLowerCase()}`}
+      className={{
+        dialog: 'w-full max-w-2xl rounded-3xl border border-(--color-border) bg-(--color-bg) shadow-2xl',
+        content: 'p-6',
+      }}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <form onSubmit={onSubmit} className="flex flex-col gap-5">
         <ResourceFormFields config={config} values={values} onChange={onChange} />
 
         <div className="flex justify-end gap-3">

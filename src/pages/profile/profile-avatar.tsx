@@ -1,3 +1,4 @@
+import { Card, Image } from '@/components';
 import { FiUser } from 'react-icons/fi';
 
 type ProfileAvatarProps = {
@@ -7,10 +8,16 @@ type ProfileAvatarProps = {
 
 export function ProfileAvatar({ previewUrl, onFileChange }: ProfileAvatarProps) {
   return (
-    <section className="flex flex-col gap-4 rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6 sm:flex-row sm:items-center">
+    <Card className="flex flex-col gap-4 rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6 sm:flex-row sm:items-center">
       <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--color-border) bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]">
         {previewUrl ? (
-          <img src={previewUrl} alt="Foto de perfil" className="h-full w-full object-cover" />
+          <Image
+            src={previewUrl}
+            alt="Foto de perfil"
+            fit="cover"
+            radius="full"
+            className="h-full w-full"
+          />
         ) : (
           <FiUser aria-hidden="true" className="opacity-50" size={44} />
         )}
@@ -29,6 +36,6 @@ export function ProfileAvatar({ previewUrl, onFileChange }: ProfileAvatarProps) 
           />
         </label>
       </div>
-    </section>
+    </Card>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/services/notifications';
 import { GitHubRepositoryList } from './github-repository-list';
 import { useGitHubRepositories } from './hooks/use-github-repositories';
 

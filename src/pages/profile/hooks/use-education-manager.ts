@@ -1,6 +1,6 @@
 import { educationService } from '@/services/education';
 import { useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/services/notifications';
 import { EMPTY_EDUCATION } from '../constants/profile';
 import type { Education, EducationFormValues } from '../profile.types';
 

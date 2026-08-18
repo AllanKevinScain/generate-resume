@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks';
 import { profileService } from '@/services/profile';
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/services/notifications';
 import { EMPTY_PROFILE, MAX_PROFILE_PHOTO_SIZE } from '../constants/profile';
 import type { Profile, ProfileFormValues } from '../profile.types';
 

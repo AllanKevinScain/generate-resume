@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/services/notifications';
 import { EducationModal } from './education-modal';
 import { EducationSection } from './education-section';
 import { useEducationManager } from './hooks/use-education-manager';

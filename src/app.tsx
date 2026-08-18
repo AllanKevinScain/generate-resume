@@ -1,4 +1,4 @@
-import { Button, SkipLink, ThemeMenu } from '@/components';
+import { Button, SkipLink, ThemeMenu, ToastViewport } from '@/components';
 import { optionsTheme } from '@/data';
 import { useAuth } from '@/hooks';
 import { DashboardPage } from '@/pages/dashboard';
@@ -9,7 +9,6 @@ import { ProjectsPage } from '@/pages/projects';
 import { ResumeEditorPage } from '@/pages/resume-editor';
 import { TechsPage } from '@/pages/techs';
 import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
-import { Toaster } from 'sonner';
 
 function AppShell() {
   const { logout } = useAuth();
@@ -71,7 +70,7 @@ function App() {
 
   return (
     <>
-      <Toaster position="top-right" richColors closeButton />
+      <ToastViewport />
       {user ? <AppShell /> : <LoginPage />}
     </>
   );

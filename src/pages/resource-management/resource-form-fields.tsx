@@ -1,7 +1,7 @@
-import { Field, Textarea } from '@/components';
+import { Field, Grid, Textarea } from '@/components';
 import { motion } from 'framer-motion';
-import { HiChevronDown } from 'react-icons/hi2';
 import type { ChangeEvent } from 'react';
+import { HiChevronDown } from 'react-icons/hi2';
 import type { ResourceConfig, ResourceFormValues } from './resource-management.types';
 
 type ResourceFormFieldsProps = {
@@ -14,7 +14,7 @@ export function ResourceFormFields(props: ResourceFormFieldsProps) {
   const { config, values, onChange } = props;
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <Grid columns={2} gap={4} minItemWidth="16rem">
       {config.fields.map((field) => {
         const common = {
           label: field.label,
@@ -53,7 +53,7 @@ export function ResourceFormFields(props: ResourceFormFieldsProps) {
                   required={!field.optional}
                   value={values[field.name] ?? ''}
                   onChange={common.onChange}
-                  className="w-full appearance-none rounded-xl border border-(--color-border) bg-(--color-bg) py-3 pl-4 pr-12 outline-none transition focus:border-(--color-primary)"
+                  className="w-full appearance-none rounded-xl border border-(--color-border) bg-(--color-bg) py-3 pr-12 pl-4 outline-none transition focus:border-(--color-primary)"
                 >
                   {field.options?.map((option) => (
                     <option key={option} value={option}>
@@ -73,13 +73,10 @@ export function ResourceFormFields(props: ResourceFormFieldsProps) {
 
         return (
           <div key={field.name} className={field.name === 'title' ? 'md:col-span-2' : undefined}>
-            <Field
-              {...common}
-              type={field.kind === 'url' ? 'url' : 'text'}
-            />
+            <Field {...common} type={field.kind === 'url' ? 'url' : 'text'} />
           </div>
         );
       })}
-    </div>
+    </Grid>
   );
 }
