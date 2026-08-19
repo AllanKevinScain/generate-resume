@@ -1,17 +1,4 @@
-import type { ResourceConfig } from './resource-management.types';
-
-export const projectsResourceConfig: ResourceConfig = {
-  table: 'project',
-  title: 'Projetos',
-  description: 'Gerencie os projetos cadastrados no Supabase.',
-  emptyMessage: 'Nenhum projeto cadastrado.',
-  fields: [
-    { name: 'title', label: 'Título' },
-    { name: 'description', label: 'Descrição', kind: 'textarea' },
-    { name: 'repository', label: 'Repositório', kind: 'url' },
-    { name: 'demo', label: 'Demonstração', kind: 'url', optional: true },
-  ],
-};
+import type { ResourceConfig } from './page.type';
 
 export const techsResourceConfig: ResourceConfig = {
   table: 'tech',

@@ -9,7 +9,8 @@ type DrawGradientBarParamsType = {
   toColor: RGB;
 };
 
-export async function drawGradientBar({ page, x, y, fromColor, toColor }: DrawGradientBarParamsType) {
+export async function drawGradientBar(params: DrawGradientBarParamsType) {
+  const { page, x, y, fromColor, toColor } = params;
   const steps = 100;
   const { width, height } = page.getSize();
 

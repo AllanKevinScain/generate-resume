@@ -1,13 +1,15 @@
-import { Button, Card, Grid, Stack } from '@/components';
+import { Button } from '@/components';
 import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
-import type { Resource } from './data-management.type';
+import type { CrudManagerProps } from './page.type';
 import { ResourceItemCard } from './resource-item-card';
 import { ResourceModal } from './resource-modal';
 import { createEmptyValues, createFormValues } from './utils';
+import { Card, Grid, Stack } from 'safira-ui/react';
 
-export function CrudManager({ resource }: { resource: Resource }) {
+export function CrudManager(props: CrudManagerProps) {
+  const { resource } = props;
   const initialValues = useMemo(() => createEmptyValues(resource), [resource]);
   const [values, setValues] = useState(initialValues);
   const [selectedItem, setSelectedItem] = useState<CrudRow | null>(null);

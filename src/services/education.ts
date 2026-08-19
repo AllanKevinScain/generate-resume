@@ -1,9 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import type {
-  Education,
-  EducationFormValues,
-  EducationStatus,
-} from '@/pages/profile/profile.types';
+import type { Education, EducationFormValues, EducationStatus } from '@/types';
 
 type EducationRow = {
   id: string;
@@ -89,11 +85,7 @@ export const educationService = {
   },
 
   async remove(userId: string, id: string) {
-    const { error } = await supabase
-      .from('educations')
-      .delete()
-      .eq('id', id)
-      .eq('user_id', userId);
+    const { error } = await supabase.from('educations').delete().eq('id', id).eq('user_id', userId);
 
     fail(error);
   },

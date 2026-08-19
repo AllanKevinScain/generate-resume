@@ -1,4 +1,5 @@
-import { Button, SkipLink, ThemeMenu, ToastViewport } from '@/components';
+import { Button, ThemeMenu, ToastViewport } from '@/components';
+import { SkipLink } from 'safira-ui/react';
 import { optionsTheme } from '@/data';
 import { useAuth } from '@/hooks';
 import { DashboardPage } from '@/pages/dashboard';

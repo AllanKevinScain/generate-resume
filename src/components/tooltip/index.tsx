@@ -1,26 +1,12 @@
 'use client';
 
-import { useState, useId, type ReactNode } from 'react';
+import { useState, useId } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
+import type { TooltipProps } from './component.type';
 
-type TooltipProps = {
-  content: ReactNode;
-  children: ReactNode;
-  side?: 'top' | 'bottom' | 'left' | 'right';
-  delay?: number;
-  className?: string;
-  classNameTootlip?: string;
-};
-
-export function Tooltip({
-  content,
-  children,
-  side = 'top',
-  delay = 150,
-  className,
-  classNameTootlip,
-}: TooltipProps) {
+export function Tooltip(props: TooltipProps) {
+  const { content, children, side = 'top', delay = 150, className, classNameTooltip } = props;
   const [open, setOpen] = useState(false);
   const id = useId();
 
@@ -82,7 +68,7 @@ export function Tooltip({
               'bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-bg)_95%,transparent),color-mix(in_srgb,var(--color-bg)_85%,transparent))]',
               'border border-[color-mix(in_srgb,var(--color-text)_15%,transparent)]',
               positionClasses,
-              classNameTootlip,
+              classNameTooltip,
             )}
           >
             {content}

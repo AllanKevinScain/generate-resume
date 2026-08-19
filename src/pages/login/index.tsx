@@ -1,4 +1,4 @@
-import { Button, Field, Stack } from '@/components';
+import { Button } from '@/components';
 import { useAuth } from '@/hooks';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -6,6 +6,7 @@ import { FaGithub } from 'react-icons/fa';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { toast } from '@/services/notifications';
 import { twMerge } from 'tailwind-merge';
+import { Field, Stack } from 'safira-ui/react';
 
 export function LoginPage() {
   const { login, loginWithGitHub } = useAuth();

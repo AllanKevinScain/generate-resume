@@ -1,7 +1,7 @@
-import type { InfoForPortifolioType } from '@/types';
+import type { PortfolioInfoType } from '@/types';
 import { supabaseCrud } from './supabase-crud';
 
-type PdfSections = Pick<InfoForPortifolioType, 'projects_section' | 'differentials_section' | 'services_section'>;
+type PdfSections = Pick<PortfolioInfoType, 'projects_section' | 'differentials_section' | 'services_section'>;
 
 function toText(value: unknown) {
   return value == null ? '' : String(value);

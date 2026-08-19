@@ -38,11 +38,17 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 - `pdf-lib`
 - `tailwind-merge`
 - `babel-plugin-react-compiler`
+- `vitest`
+- `@testing-library/react`
 
 ## Padrões importantes
 
 - Botões usam um único componente com `variant`: `primary`, `outline`, `ghost`, `danger` ou `unstyled`; não use APIs estáticas como `Button.outline`.
 - Campos de texto usam o `Field` exportado pela Safira UI; nao recrie um componente `Input` local.
+- Componentes da Safira UI, como `Card`, `Grid`, `Stack`, `Field`, `Cluster` e `Badge`, devem ser importados diretamente de `safira-ui/react`.
+- `src/components/index.ts` deve exportar somente componentes locais do projeto.
+- Nao reexportar componentes da Safira UI ou de outras bibliotecas por `src/components/index.ts`.
+- Usar `@/components` somente para componentes implementados dentro de `src/components/`.
 - Declare `required` explicitamente nos campos obrigatorios e use `Controller` para integrar o `Field` ao `react-hook-form`.
 - O `ThemeMenu` aparece no header quando o usuario esta logado.
 - Quando o usuario nao esta logado, o `ThemeMenu` vem do provider principal.
@@ -60,12 +66,27 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 - `src/providers/` para auth, tema e query client
 - `src/types/` para tipos compartilhados
 - `src/utils/` para funcoes puras e helpers
+- Componentes reutilizaveis devem seguir `src/components/{nome-do-componente}/index.tsx`.
+- Tipos exclusivos de componentes devem ficar em `component.type.ts` na mesma pasta.
+- Testes de componentes devem ficar em `component.test.tsx` na mesma pasta.
+- Paginas devem seguir `src/pages/{nome-da-pagina}/index.tsx`.
+- Tipos exclusivos de paginas devem ficar em `page.type.ts` na mesma pasta.
+- Testes de paginas devem ficar em `page.test.tsx` na mesma pasta.
+- Pastas sem componente ou pagina testavel nao precisam de arquivo de teste vazio.
+- Tipos reutilizados entre funcionalidades devem ficar em `src/types/{nome-da-tipagem}.type.ts`.
+- O `index.tsx` deve exportar somente o componente; nao reexportar tipos pelo `index.tsx`.
+- Tipos internos podem permanecer em `component.type.ts` ou `page.type.ts` sem reexportacao.
+- Nao importar tipos compartilhados a partir de `src/pages/**/page.type.ts`; servicos, providers e utils devem importar esses tipos de `@/types`.
 
 ## Convencoes de codigo
 
 - Arquivos e pastas em `kebab-case`
 - Funcoes, variaveis e parametros em `camelCase`
 - Componentes e tipos em `PascalCase`
+- Props e parametros-objeto devem ser recebidos por uma variavel e desestruturados dentro da funcao.
+- Nao desestruturar props ou parametros-objeto diretamente na assinatura da funcao.
+- Props de componentes devem usar tipos com sufixo `Props`.
+- Tipos de parametros de funcoes devem usar sufixo `ParamsType`.
 - Constantes devem ficar separadas dos arquivos que as consomem.
 - Constantes exclusivas de uma funcionalidade devem ficar na pasta `constants/` dentro da raiz dessa funcionalidade (ex.: `src/pages/profile/constants/`).
 - Constantes compartilhadas entre funcionalidades devem ficar em `src/constants/`.
@@ -78,6 +99,13 @@ Este projeto e um gerador e editor de curriculo/portfolio em React. Ele autentic
 - Nao commitar `.env`
 - Usar `.env.example` como referencia
 - Depois de alterar dependencias, rodar `npm install` antes de testar
+- Criar ou atualizar testes ao alterar componentes, paginas e funcoes testaveis.
+- Usar Vitest e Testing Library para testes unitarios e de componentes.
+- Validar com `npm run test`, `npm run lint` e `npm run build`.
+- Ao remover um arquivo, funcao, tipo ou export, localizar todos os consumidores com `rg` antes de concluir a alteracao.
+- Nao restaurar automaticamente arquivos removidos de forma intencional; atualizar os consumidores para a estrutura atual.
+- Depois de alterar barrels como `src/components/index.ts`, `src/types/index.ts` ou `src/providers/index.ts`, executar testes e build para detectar imports que resultem em `undefined`.
+- Testes de pagina devem renderizar os componentes reais sempre que possivel, para detectar exports ausentes e imports incorretos.
 
 ## Regras de lint / formatação (ESLint)
 

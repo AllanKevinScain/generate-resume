@@ -2,8 +2,10 @@ import { isSupabaseConfigured, supabase } from '@/lib/supabase';
 import type { User } from '@supabase/supabase-js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AuthContext } from './context';
+import type { AuthProviderProps } from './provider.type';
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider(props: AuthProviderProps) {
+  const { children } = props;
   const [user, setUser] = useState<User | null>(null);
   const [githubToken, setGithubToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);

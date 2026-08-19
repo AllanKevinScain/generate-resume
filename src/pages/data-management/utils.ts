@@ -1,5 +1,5 @@
 import type { CrudRow } from '@/services/supabase-crud';
-import type { Resource, ResourceFormValues } from './data-management.type';
+import type { Resource, ResourceFormValues } from './page.type';
 
 export function createEmptyValues(resource: Resource) {
   return resource.fields.reduce<ResourceFormValues>((acc, field) => {

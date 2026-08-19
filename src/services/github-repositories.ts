@@ -13,13 +13,6 @@ export type GitHubRepositoryWithTechnologies = GitHubRepository & {
   technologies: string[];
 };
 
-export type ProjectImportInput = {
-  title: string;
-  description: string;
-  repository: string;
-  demo: string | null;
-};
-
 function getGitHubApiUrl() {
   const githubApiUrl = import.meta.env.VITE_GITHUB_API_URL;
 
@@ -71,16 +64,4 @@ export async function listPublicGitHubRepositories(githubToken: string) {
   }));
 
   return repositoriesWithTechnologies as GitHubRepositoryWithTechnologies[];
-}
-
-export function mapGitHubRepositoryToProject(
-  repository: GitHubRepository,
-): ProjectImportInput {
-  return {
-    title: repository.name,
-    description:
-      repository.description?.trim() || 'Repositório importado diretamente do GitHub.',
-    repository: repository.html_url,
-    demo: repository.homepage?.trim() ? repository.homepage : null,
-  };
 }

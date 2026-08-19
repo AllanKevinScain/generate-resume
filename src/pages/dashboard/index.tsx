@@ -1,5 +1,5 @@
-import { Card, Grid, Stack } from '@/components';
 import { Link } from 'react-router-dom';
+import { Card, Grid, Stack } from 'safira-ui/react';
 import { DASHBOARD_CARDS } from './constants/dashboard';
 
 export function DashboardPage() {

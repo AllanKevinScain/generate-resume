@@ -1,22 +1,7 @@
 import { Button } from '@/components';
 import { Modal } from 'safira-ui/react';
 import { ResourceFormFields } from './resource-form-fields';
-import type {
-  ResourceConfig,
-  ResourceFormValues,
-  ResourceItem,
-} from './resource-management.types';
-
-type ResourceManagementModalProps = {
-  config: ResourceConfig;
-  isOpen: boolean;
-  isSaving: boolean;
-  selectedItem: ResourceItem | null;
-  values: ResourceFormValues;
-  onClose: () => void;
-  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
-  onChange: (field: string, value: string) => void;
-};
+import type { ResourceManagementModalProps } from './page.type';
 
 export function ResourceManagementModal(props: ResourceManagementModalProps) {
   const {

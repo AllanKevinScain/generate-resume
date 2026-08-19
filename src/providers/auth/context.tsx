@@ -1,7 +1,7 @@
 import type { User } from '@supabase/supabase-js';
 import { createContext } from 'react';
 
-export type AuthContextType = {
+type AuthContextType = {
   user: User | null;
   githubToken: string | null;
   isLoading: boolean;

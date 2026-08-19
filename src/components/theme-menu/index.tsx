@@ -2,19 +2,15 @@
 
 import { optionsTheme } from '@/data';
 import { useTheme } from '@/hooks';
-import type { ThemeType } from '@/types';
-import { useId, type ReactNode } from 'react';
+import { useId } from 'react';
 import { MdLightMode } from 'react-icons/md';
 import { Popover } from 'safira-ui/react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from '../button';
+import type { ThemeMenuProps } from './component.type';
 
-interface ThemeMenuProps {
-  items: { label: string; value: ThemeType; icon?: ReactNode }[];
-  type?: 'float' | 'inline';
-}
-
-export function ThemeMenu({ items, type = 'float' }: ThemeMenuProps) {
+export function ThemeMenu(props: ThemeMenuProps) {
+  const { items, type = 'float' } = props;
   const { setTheme, theme } = useTheme();
   const reactId = useId();
   const popoverId = `theme-menu-${reactId.replaceAll(':', '')}`;

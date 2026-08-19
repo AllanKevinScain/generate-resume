@@ -1,8 +1,9 @@
-import { Button, Cluster, Stack } from '@/components';
+import { Button } from '@/components';
 import { useState } from 'react';
 import { DATA_MANAGEMENT_RESOURCES } from './constants/resources';
 import { CrudManager } from './crud-manager';
-import type { Resource } from './data-management.type';
+import type { Resource } from './page.type';
+import { Cluster, Stack } from 'safira-ui/react';
 
 export function DataManagementPage() {
   const [activeTable, setActiveTable] = useState<Resource['table']>('project');

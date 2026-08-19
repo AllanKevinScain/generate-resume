@@ -9,7 +9,7 @@ export type PdfThemeColors = {
   border: RGB;
 };
 
-export function hexToPdfRgb(hex: string) {
+function hexToPdfRgb(hex: string) {
   const cleanHex = hex.replace('#', '');
 
   const r = parseInt(cleanHex.substring(0, 2), 16) / 255;

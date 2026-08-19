@@ -1,12 +1,4 @@
-import type { ProfileFormValues } from '../profile.types';
-
-export type ProfileField = {
-  name: keyof ProfileFormValues;
-  label: string;
-  type?: string;
-  required?: boolean;
-  autoComplete?: string;
-};
+import type { ProfileField } from '../page.type';
 
 export const PERSONAL_FIELDS: ProfileField[] = [
   { name: 'fullName', label: 'Nome completo', required: true, autoComplete: 'name' },

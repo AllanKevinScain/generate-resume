@@ -1,4 +1,4 @@
-import type { Resource } from '../data-management.type';
+import type { Resource } from '../page.type';
 
 export const DATA_MANAGEMENT_RESOURCES: Resource[] = [
   {

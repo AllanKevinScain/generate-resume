@@ -1,13 +1,13 @@
 import { PDFFont, PDFPage } from 'pdf-lib';
 import type { PdfThemeColors } from './styles/select-colors-by-theme';
-import type { InfoForPortifolioType } from '@/types';
+import type { PortfolioInfoType } from '@/types';
 
 type GenerateDifferentialsPartParamsType = {
   page: PDFPage;
   font: PDFFont;
   fontBold: PDFFont;
   y: number;
-  infoForPortifolio: InfoForPortifolioType;
+  infoForPortifolio: PortfolioInfoType;
   themeColors: PdfThemeColors;
 };
 

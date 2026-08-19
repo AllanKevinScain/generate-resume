@@ -1,17 +1,8 @@
-import { Button, Field, Textarea } from '@/components';
-import { Grid, Modal } from 'safira-ui/react';
+import { Button, Textarea } from '@/components';
+import { Field, Grid, Modal } from 'safira-ui/react';
 import { EDUCATION_STATUS_LABELS } from './constants/profile';
-import type { Education, EducationFormValues, EducationStatus } from './profile.types';
-
-type EducationModalProps = {
-  isOpen: boolean;
-  isSaving: boolean;
-  selectedEducation: Education | null;
-  values: EducationFormValues;
-  onClose: () => void;
-  onChange: (field: keyof EducationFormValues, value: string) => void;
-  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
-};
+import type { EducationStatus } from '@/types';
+import type { EducationModalProps } from './page.type';
 
 export function EducationModal(props: EducationModalProps) {
   const { isOpen, isSaving, selectedEducation, values, onClose, onChange, onSubmit } = props;

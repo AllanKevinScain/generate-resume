@@ -1,13 +1,9 @@
-import { Button, Card, Cluster } from '@/components';
-import type { CrudRow } from '@/services/supabase-crud';
+import { Button } from '@/components';
+import { Card, Cluster } from 'safira-ui/react';
+import type { ResourceItemCardProps } from './page.type';
 
-type ResourceItemCardProps = {
-  item: CrudRow;
-  onEdit: (item: CrudRow) => void;
-  onRemove: (item: CrudRow) => void;
-};
-
-export function ResourceItemCard({ item, onEdit, onRemove }: ResourceItemCardProps) {
+export function ResourceItemCard(props: ResourceItemCardProps) {
+  const { item, onEdit, onRemove } = props;
   return (
     <Card
       elevation="raised"
