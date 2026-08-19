@@ -1,14 +1,9 @@
-import { Field, Grid, Textarea } from '@/components';
+import { Textarea } from '@/components';
 import { motion } from 'framer-motion';
 import type { ChangeEvent } from 'react';
 import { HiChevronDown } from 'react-icons/hi2';
-import type { ResourceConfig, ResourceFormValues } from './resource-management.types';
-
-type ResourceFormFieldsProps = {
-  config: ResourceConfig;
-  values: ResourceFormValues;
-  onChange: (field: string, value: string) => void;
-};
+import type { ResourceFormFieldsProps } from './page.type';
+import { Field, Grid } from 'safira-ui/react';
 
 export function ResourceFormFields(props: ResourceFormFieldsProps) {
   const { config, values, onChange } = props;

@@ -1,8 +1,4 @@
-import type {
-  EducationFormValues,
-  EducationStatus,
-  ProfileFormValues,
-} from '../profile.types';
+import type { EducationFormValues, EducationStatus, ProfileFormValues } from '@/types';
 
 export const EMPTY_PROFILE: ProfileFormValues = {
   fullName: '',

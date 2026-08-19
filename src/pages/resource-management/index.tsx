@@ -1,14 +1,16 @@
-import { Grid, HeaderFormPage, Stack } from '@/components';
+import { HeaderFormPage } from '@/components';
 import { supabaseCrud, type CrudRow } from '@/services/supabase-crud';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from '@/services/notifications';
 import { ResourceItemCard } from './resource-item-card';
 import { ResourceManagementModal } from './resource-management-modal';
-import type { ResourceConfig } from './resource-management.types';
+import type { ResourceManagementPageProps } from './page.type';
 import { createEmptyValues, createFormValues } from './resource-management-values';
+import { Grid, Stack } from 'safira-ui/react';
 
-export function ResourceManagementPage({ config }: { config: ResourceConfig }) {
+export function ResourceManagementPage(props: ResourceManagementPageProps) {
+  const { config } = props;
   const initialValues = useMemo(() => createEmptyValues(config), [config]);
   const [values, setValues] = useState(initialValues);
   const [selectedItem, setSelectedItem] = useState<CrudRow | null>(null);

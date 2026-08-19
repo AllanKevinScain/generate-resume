@@ -1,9 +1,9 @@
 import type { CrudRow } from '@/services/supabase-crud';
-import type { ResourceConfig, ResourceFormValues } from './resource-management.types';
+import type { ResourceConfig, ResourceFormValues } from './page.type';
 
 export function createEmptyValues(config: ResourceConfig) {
   return config.fields.reduce<ResourceFormValues>((acc, field) => {
-    acc[field.name] = field.kind === 'select' ? field.options?.[0] ?? '' : '';
+    acc[field.name] = field.kind === 'select' ? (field.options?.[0] ?? '') : '';
     return acc;
   }, {});
 }

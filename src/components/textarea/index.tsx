@@ -1,20 +1,17 @@
 'use client';
 
-import { type TextareaHTMLAttributes, forwardRef, useId } from 'react';
+import { forwardRef, useId } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Tooltip } from '../tootlip';
+import { Tooltip } from '../tooltip';
 import { TbEyeQuestion } from 'react-icons/tb';
-
-interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  helperText?: string;
-  error?: string;
-  classNameTextarea?: string;
-}
+import type { TextareaProps } from './component.type';
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
-    {
+    componentProps,
+    ref,
+  ) => {
+    const {
       label,
       helperText,
       error,
@@ -23,9 +20,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
       classNameTextarea,
       ...props
-    },
-    ref,
-  ) => {
+    } = componentProps;
     const reactId = useId();
     const inputId = id || reactId;
 

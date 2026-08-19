@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import type { Profile, ProfileFormValues } from '@/pages/profile/profile.types';
+import type { Profile, ProfileFormValues } from '@/types';
 
 type ProfileRow = {
   id: string;
@@ -48,11 +48,7 @@ function mapProfile(row: ProfileRow): Profile {
 
 export const profileService = {
   async get(userId: string) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .maybeSingle();
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
 
     fail(error);
     return data ? mapProfile(data as ProfileRow) : null;
@@ -97,9 +93,7 @@ export const profileService = {
   },
 
   async getAvatarUrl(path: string) {
-    const { data, error } = await supabase.storage
-      .from('profile-photos')
-      .createSignedUrl(path, 60 * 60);
+    const { data, error } = await supabase.storage.from('profile-photos').createSignedUrl(path, 60 * 60);
 
     fail(error);
     return data?.signedUrl;

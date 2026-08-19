@@ -1,5 +1,4 @@
-import { Badge, Card, Cluster, Stack } from '@/components';
-import type { GitHubRepositoryWithTechnologies } from '@/services/github-repositories';
+import { Badge, Card, Cluster, Stack } from 'safira-ui/react';
 import { BiCodeAlt } from 'react-icons/bi';
 import {
   SiAngular,
@@ -25,6 +24,7 @@ import {
   SiTypescript,
   SiVuedotjs,
 } from 'react-icons/si';
+import type { GitHubRepositoryCardProps } from './page.type';
 
 function getTechnologyIcon(technology: string) {
   const key = technology.toLowerCase();
@@ -56,13 +56,8 @@ function getTechnologyIcon(technology: string) {
   return <BiCodeAlt size={14} aria-hidden="true" />;
 }
 
-export function GitHubRepositoryCard({
-  repository,
-  formatDate,
-}: {
-  repository: GitHubRepositoryWithTechnologies;
-  formatDate: (value: string) => string;
-}) {
+export function GitHubRepositoryCard(props: GitHubRepositoryCardProps) {
+  const { repository, formatDate } = props;
   return (
     <Card
       elevation="raised"

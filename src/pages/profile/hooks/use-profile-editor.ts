@@ -1,15 +1,10 @@
 import { useAuth } from '@/hooks';
 import { profileService } from '@/services/profile';
+import type { Profile, ProfileFormValues } from '@/types';
 import { useEffect, useState } from 'react';
 import { toast } from '@/services/notifications';
 import { EMPTY_PROFILE, MAX_PROFILE_PHOTO_SIZE } from '../constants/profile';
-import type { Profile, ProfileFormValues } from '../profile.types';
-
-type UseProfileEditorProps = {
-  userId: string;
-  profile: Profile | null | undefined;
-  refetch: () => Promise<unknown>;
-};
+import type { UseProfileEditorProps } from '../page.type';
 
 function toFormValues(profile: Profile): ProfileFormValues {
   const { id, avatarPath, ...values } = profile;
@@ -85,7 +80,7 @@ export function useProfileEditor(props: UseProfileEditorProps) {
     try {
       const avatarPath = avatarFile
         ? await profileService.uploadAvatar(userId, avatarFile)
-        : profile?.avatarPath ?? null;
+        : (profile?.avatarPath ?? null);
       const savedProfile = await profileService.save(userId, values, avatarPath);
       setValues(toFormValues(savedProfile));
       setAvatarFile(null);

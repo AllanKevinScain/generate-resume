@@ -6,7 +6,8 @@ type DegradeGenerateColorParamsType = {
   t: number;
 };
 
-export function degradeGenerateColor({ fromColor, toColor, t }: DegradeGenerateColorParamsType): RGB {
+export function degradeGenerateColor(params: DegradeGenerateColorParamsType): RGB {
+  const { fromColor, toColor, t } = params;
   const r = fromColor.red + (toColor.red - fromColor.red) * t;
   const g = fromColor.green + (toColor.green - fromColor.green) * t;
   const b = fromColor.blue + (toColor.blue - fromColor.blue) * t;

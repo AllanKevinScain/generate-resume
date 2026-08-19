@@ -1,12 +1,7 @@
 'use client';
 
 import { Button } from '@/components';
-
-type HeaderFormPageProps = {
-  titulo: string;
-  descricao: string;
-  onAdicionar: () => void;
-};
+import type { HeaderFormPageProps } from './component.type';
 
 export function HeaderFormPage(props: HeaderFormPageProps) {
   const { titulo, descricao, onAdicionar } = props;

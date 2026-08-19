@@ -3,8 +3,10 @@
 import type { ThemeType } from '@/types';
 import { useEffect, useState } from 'react';
 import { ThemeContext } from './context';
+import type { ThemeProviderProps } from './provider.type';
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider(props: ThemeProviderProps) {
+  const { children } = props;
   const [theme, setStateTheme] = useState<ThemeType>(() => {
     if (typeof window !== 'undefined') {
       return (window.localStorage.getItem('theme') as ThemeType) || 'light';

@@ -1,13 +1,9 @@
 import { educationService } from '@/services/education';
+import type { Education, EducationFormValues } from '@/types';
 import { useState } from 'react';
 import { toast } from '@/services/notifications';
 import { EMPTY_EDUCATION } from '../constants/profile';
-import type { Education, EducationFormValues } from '../profile.types';
-
-type UseEducationManagerProps = {
-  userId: string;
-  refetch: () => Promise<unknown>;
-};
+import type { UseEducationManagerProps } from '../page.type';
 
 function toFormValues(education: Education): EducationFormValues {
   const { id, userId, ...values } = education;
@@ -16,7 +12,8 @@ function toFormValues(education: Education): EducationFormValues {
   return values;
 }
 
-export function useEducationManager({ userId, refetch }: UseEducationManagerProps) {
+export function useEducationManager(props: UseEducationManagerProps) {
+  const { userId, refetch } = props;
   const [values, setValues] = useState<EducationFormValues>(EMPTY_EDUCATION);
   const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

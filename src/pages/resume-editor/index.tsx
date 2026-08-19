@@ -1,22 +1,17 @@
-import { Button, Field, Grid, Stack, Textarea } from '@/components';
+import { Button, Textarea } from '@/components';
 import { useAuth, useTheme } from '@/hooks';
 import {
   footerDefaultValues,
   headerDefaultValues,
-  type FooterSchemaType,
-  type HeaderSchemaType,
 } from '@/schemas';
 import { generatePortfolioPDF } from '@/utils';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/services/notifications';
+import type { ResumeFormValues, ResumeSectionProps } from './page.type';
+import { Field, Grid, Stack } from 'safira-ui/react';
 
-type ResumeFormValues = {
-  profile: HeaderSchemaType;
-  footer: FooterSchemaType;
-};
-
-function Section(props: { title: string; children: React.ReactNode }) {
+function Section(props: ResumeSectionProps) {
   return (
     <fieldset className="rounded-2xl border border-(--color-border) p-5">
       <legend className="px-2 text-xl font-semibold text-(--color-text)">{props.title}</legend>

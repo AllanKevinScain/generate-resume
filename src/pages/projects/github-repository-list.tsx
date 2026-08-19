@@ -1,20 +1,13 @@
-import { Button, Cluster, Field, Grid, Stack } from '@/components';
-import type { GitHubRepositoryWithTechnologies } from '@/services/github-repositories';
+import { Button } from '@/components';
 import { useState, type ChangeEvent } from 'react';
 import { FiChevronLeft, FiChevronRight, FiSearch } from 'react-icons/fi';
 import { GitHubRepositoryCard } from './github-repository-card';
+import type { GitHubRepositoryListProps } from './page.type';
+import { ITEMS_PER_PAGE } from './constants/projects';
+import { Cluster, Field, Grid, Stack } from 'safira-ui/react';
 
-const ITEMS_PER_PAGE = 5;
-
-type GitHubRepositoryListProps = {
-  repositories: GitHubRepositoryWithTechnologies[];
-  formatDate: (value: string) => string;
-};
-
-export function GitHubRepositoryList({
-  repositories,
-  formatDate,
-}: GitHubRepositoryListProps) {
+export function GitHubRepositoryList(props: GitHubRepositoryListProps) {
+  const { repositories, formatDate } = props;
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const normalizedSearchTerm = searchTerm.trim().toLocaleLowerCase('pt-BR');

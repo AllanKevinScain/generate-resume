@@ -1,12 +1,9 @@
-import { Card, Image } from '@/components';
 import { FiUser } from 'react-icons/fi';
+import type { ProfileAvatarProps } from './page.type';
+import { Card, Image } from 'safira-ui/react';
 
-type ProfileAvatarProps = {
-  previewUrl: string | null;
-  onFileChange: (file: File | null) => void;
-};
-
-export function ProfileAvatar({ previewUrl, onFileChange }: ProfileAvatarProps) {
+export function ProfileAvatar(props: ProfileAvatarProps) {
+  const { previewUrl, onFileChange } = props;
   return (
     <Card className="flex flex-col gap-4 rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6 sm:flex-row sm:items-center">
       <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--color-border) bg-[color-mix(in_srgb,var(--color-primary)_8%,transparent)]">

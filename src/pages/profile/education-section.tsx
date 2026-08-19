@@ -1,14 +1,8 @@
-import { Badge, Button, Card, Cluster, Grid } from '@/components';
+import { Button } from '@/components';
+import type { Education } from '@/types';
 import { EDUCATION_STATUS_LABELS } from './constants/profile';
-import type { Education } from './profile.types';
-
-type EducationSectionProps = {
-  educations: Education[];
-  isLoading: boolean;
-  onAdd: () => void;
-  onEdit: (education: Education) => void;
-  onRemove: (education: Education) => void;
-};
+import type { EducationSectionProps } from './page.type';
+import { Badge, Card, Cluster, Grid } from 'safira-ui/react';
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat('pt-BR', {

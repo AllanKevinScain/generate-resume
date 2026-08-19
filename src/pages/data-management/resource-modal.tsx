@@ -1,19 +1,7 @@
-import { Button, Field, Textarea } from '@/components';
-import { Grid, Modal } from 'safira-ui/react';
+import { Button, Textarea } from '@/components';
+import { Field, Grid, Modal } from 'safira-ui/react';
 import { type ChangeEvent } from 'react';
-import type { Resource, ResourceFormValues } from './data-management.type';
-
-interface ResourceModalProps {
-  resource: Resource;
-  isOpen: boolean;
-  title: string;
-  values: ResourceFormValues;
-  error: string | null;
-  isSaving: boolean;
-  onClose: () => void;
-  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
-  onChange: (field: string, value: string) => void;
-}
+import type { ResourceModalProps } from './page.type';
 
 export function ResourceModal(props: ResourceModalProps) {
   const { resource, isOpen, title, values, error, isSaving, onClose, onSubmit, onChange } = props;

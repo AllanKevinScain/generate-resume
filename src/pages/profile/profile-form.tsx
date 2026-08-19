@@ -1,25 +1,15 @@
-import { Button, Card, Field, Grid, Stack, Textarea } from '@/components';
+import { Button, Textarea } from '@/components';
 import {
   ADDRESS_FIELDS,
   PERSONAL_FIELDS,
   SOCIAL_FIELDS,
-  type ProfileField,
 } from './constants/profile-fields';
-import type { ProfileFormValues } from './profile.types';
+import type { FieldsProps, ProfileFormProps } from './page.type';
 import { formatPhone } from './utils/format-phone';
+import { Card, Field, Grid, Stack } from 'safira-ui/react';
 
-type ProfileFormProps = {
-  values: ProfileFormValues;
-  isSaving: boolean;
-  onChange: (field: keyof ProfileFormValues, value: string) => void;
-  onSubmit: (event: React.SubmitEvent<HTMLFormElement>) => void;
-};
-
-function Fields({
-  fields,
-  values,
-  onChange,
-}: Pick<ProfileFormProps, 'values' | 'onChange'> & { fields: ProfileField[] }) {
+function Fields(props: FieldsProps) {
+  const { fields, values, onChange } = props;
   return fields.map((field) => (
     <Field
       key={field.name}
@@ -36,7 +26,8 @@ function Fields({
   ));
 }
 
-export function ProfileForm({ values, isSaving, onChange, onSubmit }: ProfileFormProps) {
+export function ProfileForm(props: ProfileFormProps) {
+  const { values, isSaving, onChange, onSubmit } = props;
   return (
     <Card className="rounded-3xl border border-(--color-border) bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] p-6">
       <form onSubmit={onSubmit}>
